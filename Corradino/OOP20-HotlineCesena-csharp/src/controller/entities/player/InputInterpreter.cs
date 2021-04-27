@@ -35,8 +35,8 @@ namespace OOP20_HotlineCesena_csharp.controller.entities.player
         public ICollection<Action<IPlayer>> Interpret(Tuple<ISet<Enum>, IPoint2D> inputs, IPoint2D spritePosition,
             double deltaTime)
         {
-            IList<Action<IPlayer>> outList = new List<Action<IPlayer>>();
-            (ISet<Enum> keysAndButtons, IPoint2D mouseCoords) = inputs;
+            var outList = new List<Action<IPlayer>>();
+            (ISet<Enum> keysAndButtons, IPoint2D mouseCoords) = Objects.RequireNonNull(inputs);
             ISet<string> actionNames = ConvertBindings(keysAndButtons);
 
             // Compute new movement direction
@@ -58,18 +58,12 @@ namespace OOP20_HotlineCesena_csharp.controller.entities.player
              * Compute actions that need to be executed only once if
              * the user keeps holding the assigned key
              */
-            foreach (Action<IPlayer> command in ProcessOneTimeActions(actionNames))
-            {
-                outList.Add(command);
-            }
+            outList.AddRange(ProcessOneTimeActions(actionNames));
 
             /*
              * Compute actions that can be executed continuously
              */
-            foreach (Action<IPlayer> command in ProcessContinuousActions(actionNames))
-            {
-                outList.Add(command);
-            }
+            outList.AddRange(ProcessContinuousActions(actionNames));
 
             return outList;
         }
