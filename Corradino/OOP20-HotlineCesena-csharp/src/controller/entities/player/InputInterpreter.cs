@@ -24,8 +24,12 @@ namespace OOP20_HotlineCesena_csharp.controller.entities.player
         public InputInterpreter(IDictionary<Enum, string> bindings, IDictionary<string, IDirection> movements,
             IDictionary<string, Action<IPlayer>> continuousActions, IDictionary<string, Action<IPlayer>> oneTimeActions)
         {
-            (_bindings, _movements, _continuousActions, _oneTimeActions) =
-                (bindings, movements, continuousActions, oneTimeActions);
+            (_bindings, _movements, _continuousActions, _oneTimeActions) = (
+                Objects.RequireNonNull(bindings),
+                Objects.RequireNonNull(movements),
+                Objects.RequireNonNull(continuousActions),
+                Objects.RequireNonNull(oneTimeActions)
+                );
         }
 
         public ICollection<Action<IPlayer>> Interpret(Tuple<ISet<Enum>, IPoint2D> inputs, IPoint2D spritePosition,
