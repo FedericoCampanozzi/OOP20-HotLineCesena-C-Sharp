@@ -2,6 +2,9 @@
 
 namespace OOP20_HotlineCesena_csharp.commons
 {
+    /// <summary>
+    /// Implementation of <see cref="IPoint2D"/>.
+    /// </summary>
     public sealed class Point2D : IPoint2D, IEquatable<Point2D>
     {
         const double Epsilon = 0.000001;

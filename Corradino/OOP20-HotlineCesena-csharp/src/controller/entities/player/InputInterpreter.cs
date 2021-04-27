@@ -8,6 +8,9 @@ using OOP20_HotlineCesena_csharp.utils;
 
 namespace OOP20_HotlineCesena_csharp.controller.entities.player
 {
+    /// <summary>
+    /// <see cref="IInputInterpreter"/> implementation.
+    /// </summary>
     public sealed class InputInterpreter : IInputInterpreter
     {
         const float Deadzone = 50.0f;

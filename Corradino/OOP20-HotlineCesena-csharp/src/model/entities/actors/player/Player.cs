@@ -37,7 +37,7 @@ namespace OOP20_HotlineCesena_csharp.model.entities.actors.player
         }
 
         /// <remark>
-        ///     Only partially implemented. Collision detection is not needed.
+        ///     Only partially implemented. Collision detection is not needed here.
         /// </remark>
         protected override void ExecuteMovement(IPoint2D direction)
         {
