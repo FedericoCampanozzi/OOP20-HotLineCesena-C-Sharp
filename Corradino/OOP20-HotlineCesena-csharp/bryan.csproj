@@ -38,16 +38,20 @@
   <ItemGroup>
     <Compile Include="src\App.cs" />
     <Compile Include="src\commons\IPoint2D.cs" />
+    <Compile Include="src\commons\Objects.cs" />
     <Compile Include="src\commons\Point2D.cs" />
     <Compile Include="src\controller\entities\player\command\Command.cs" />
     <Compile Include="src\controller\entities\player\IInputInterpreter.cs" />
     <Compile Include="src\controller\entities\player\InputInterpreter.cs" />
+    <Compile Include="src\model\entities\AbstractEntity.cs" />
+    <Compile Include="src\model\entities\AbstractMovableEntity.cs" />
+    <Compile Include="src\model\entities\actors\AbstractActor.cs" />
     <Compile Include="src\model\entities\actors\ActorStatus.cs" />
     <Compile Include="src\commons\Direction.cs" />
     <Compile Include="src\commons\IDirection.cs" />
     <Compile Include="src\model\entities\actors\IActor.cs" />
-    <Compile Include="src\model\entities\actors\IInventory.cs" />
     <Compile Include="src\model\entities\actors\player\IPlayer.cs" />
+    <Compile Include="src\model\entities\actors\player\Player.cs" />
     <Compile Include="src\model\entities\IEntity.cs" />
     <Compile Include="src\model\entities\IMovableEntity.cs" />
     <Compile Include="src\utils\MathUtils.cs" />
