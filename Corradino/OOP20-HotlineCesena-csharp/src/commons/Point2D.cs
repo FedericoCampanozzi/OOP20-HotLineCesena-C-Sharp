@@ -2,14 +2,29 @@
 
 namespace OOP20_HotlineCesena_csharp.commons
 {
-    public class Point2D : IPoint2D, IEquatable<Point2D>
+    public sealed class Point2D : IPoint2D, IEquatable<Point2D>
     {
-        public static readonly IPoint2D Zero = new Point2D(0.0, 0.0);
         const double Epsilon = 0.000001;
+        public static readonly IPoint2D Zero = new Point2D(0.0, 0.0);
 
         public Point2D(double x, double y)
         {
             (X, Y) = (x, y);
+        }
+
+        public bool Equals(Point2D other)
+        {
+            if (other is null)
+            {
+                return false;
+            }
+
+            if (ReferenceEquals(this, other))
+            {
+                return true;
+            }
+
+            return Math.Abs(X - other.X) < Epsilon && Math.Abs(Y - other.Y) < Epsilon;
         }
 
         public double X { get; }
@@ -44,24 +59,9 @@ namespace OOP20_HotlineCesena_csharp.commons
             return Math.Sqrt(a * a + b * b);
         }
 
-        public bool Equals(Point2D other)
-        {
-            if (ReferenceEquals(null, other))
-            {
-                return false;
-            }
-
-            if (ReferenceEquals(this, other))
-            {
-                return true;
-            }
-
-            return Math.Abs(X - other.X) < Epsilon && Math.Abs(Y - other.Y) < Epsilon;
-        }
-
         public override bool Equals(object obj)
         {
-            if (ReferenceEquals(null, obj))
+            if (obj is null)
             {
                 return false;
             }
@@ -71,7 +71,7 @@ namespace OOP20_HotlineCesena_csharp.commons
                 return true;
             }
 
-            return obj.GetType() == this.GetType() && Equals((Point2D) obj);
+            return obj.GetType() == GetType() && Equals((Point2D) obj);
         }
 
         public override int GetHashCode()
@@ -94,7 +94,7 @@ namespace OOP20_HotlineCesena_csharp.commons
 
         public override string ToString()
         {
-            return "[" + X + ", " + Y + "]";
+            return $"Point2D: ({X}, {Y})";
         }
     }
 }
