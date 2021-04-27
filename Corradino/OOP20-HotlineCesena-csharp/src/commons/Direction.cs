@@ -10,9 +10,9 @@
 
         Direction(IPoint2D dir)
         {
-            Dir = dir;
+            Get = dir;
         }
 
-        public IPoint2D Dir { get; }
+        public IPoint2D Get { get; }
     }
 }

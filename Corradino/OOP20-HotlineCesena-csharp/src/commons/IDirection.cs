@@ -2,6 +2,6 @@
 {
     public interface IDirection
     {
-        IPoint2D Dir { get; }
+        IPoint2D Get { get; }
     }
 }
