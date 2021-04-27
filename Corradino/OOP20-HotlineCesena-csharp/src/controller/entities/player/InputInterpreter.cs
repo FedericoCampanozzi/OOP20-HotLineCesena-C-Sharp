@@ -12,8 +12,8 @@ namespace OOP20_HotlineCesena_csharp.controller.entities.player
     {
         const float Deadzone = 50.0f;
         readonly IDictionary<Enum, string> _bindings;
-        readonly IDictionary<string, IDirection> _movements;
         readonly IDictionary<string, Action<IPlayer>> _continuousActions;
+        readonly IDictionary<string, IDirection> _movements;
         readonly IDictionary<string, Action<IPlayer>> _oneTimeActions;
         readonly ISet<string> _oneTimeHistory = new HashSet<string>();
         IPoint2D _currentMouseCoords = Point2D.Zero;
@@ -34,7 +34,7 @@ namespace OOP20_HotlineCesena_csharp.controller.entities.player
 
             // Compute new movement direction
             IPoint2D moveDir = ProcessMovementDirection(actionNames);
-            if (!Equals(moveDir, Direction.None.Dir))
+            if (!Equals(moveDir, Direction.None.Get))
             {
                 outList.Add(Command.MoveCommand(moveDir.Multiply(deltaTime)));
             }
@@ -79,7 +79,7 @@ namespace OOP20_HotlineCesena_csharp.controller.entities.player
         {
             return _movements
                 .Where(e => actions.Contains(e.Key))
-                .Select(e => e.Value.Dir)
+                .Select(e => e.Value.Get)
                 .Aggregate(Point2D.Zero, (p1, p2) => p1.Add(p2))
                 .Normalize();
         }
