@@ -35,6 +35,8 @@ namespace Test
             {"use", p => p.Use()}
         };
 
+        readonly IDictionary<string, Action<IPlayer>> _oneTimeActions = new Dictionary<string, Action<IPlayer>>();
+
         readonly IDictionary<string, IDirection> _movements = new Dictionary<string, IDirection>
         {
             {"move_north", Direction.North},
@@ -49,8 +51,7 @@ namespace Test
         public void Setup()
         {
             _interpreter =
-                new InputInterpreter(_bindings, _movements, _continuousActions,
-                    new Dictionary<string, Action<IPlayer>>());
+                new InputInterpreter(_bindings, _movements, _continuousActions, _oneTimeActions);
         }
 
         [Test]
