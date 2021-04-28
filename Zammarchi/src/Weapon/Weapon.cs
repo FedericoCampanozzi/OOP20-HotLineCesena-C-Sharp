@@ -8,12 +8,11 @@ namespace Zammarchi.Weapon
     public class Weapon
     {
         public WeaponType weaponType;
-        private readonly IAttackStrategy attackStrategy;
 
         public int Damage { get; }
         public int Magazine { get; set; }
         public int MagazineSize { get; }
-        public IAttackStrategy AttackStrategy => attackStrategy;
+        public IAttackStrategy AttackStrategy { get; }
         public Weapon(WeaponType weaponType)
         {
             WeaponBuilder weaponBuilder = new WeaponBuilder(weaponType);
@@ -21,7 +20,7 @@ namespace Zammarchi.Weapon
             this.Damage = weaponBuilder.Damage;
             this.Magazine = weaponBuilder.MagazineSize;
             this.MagazineSize = weaponBuilder.MagazineSize;
-            this.attackStrategy = weaponBuilder.AttackStrategy;
+            this.AttackStrategy = weaponBuilder.AttackStrategy;
         }
 
         public void Fire()
