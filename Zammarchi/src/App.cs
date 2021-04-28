@@ -1,12 +1,12 @@
 ﻿using System;
 
-namespace OOP20_HotlineCesena_csharp
+namespace Zammarchi
 {
     class App
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hotlnine Cesena - Zammarchi C# App -> Starting...");
         }
     }
 }

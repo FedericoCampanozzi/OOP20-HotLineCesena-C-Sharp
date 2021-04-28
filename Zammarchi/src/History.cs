@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OOP20_HotlineCesena_csharp
+namespace Zammarchi
 {
     public sealed class History
     {

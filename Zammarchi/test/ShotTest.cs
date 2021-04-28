@@ -1,7 +1,7 @@
 ﻿using NUnit.Framework;
-using OOP20_HotlineCesena_csharp;
-using OOP20_HotlineCesena_csharp.Weapon;
-using OOP20_HotlineCesena_csharp.Weapon.AttackStrategy;
+using Zammarchi;
+using Zammarchi.Weapon;
+using Zammarchi.Weapon.AttackStrategy;
 using System;
 
 namespace Test

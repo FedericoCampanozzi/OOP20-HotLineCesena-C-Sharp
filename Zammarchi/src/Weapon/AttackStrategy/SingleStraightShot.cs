@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace OOP20_HotlineCesena_csharp.Weapon.AttackStrategy
+namespace Zammarchi.Weapon.AttackStrategy
 {
     public class SingleStraightShot : IAttackStrategy
     {

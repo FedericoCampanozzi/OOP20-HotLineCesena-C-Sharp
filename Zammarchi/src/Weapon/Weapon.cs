@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using OOP20_HotlineCesena_csharp.Weapon.AttackStrategy;
+using Zammarchi.Weapon.AttackStrategy;
 
-namespace OOP20_HotlineCesena_csharp.Weapon
+namespace Zammarchi.Weapon
 {
     public class Weapon
     {
