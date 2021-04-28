@@ -59,6 +59,7 @@
     <Compile Include="src\model\entities\actors\player\Player.cs" />
     <Compile Include="src\model\entities\IEntity.cs" />
     <Compile Include="src\model\entities\IMovableEntity.cs" />
+    <Compile Include="src\model\entities\Obstacle.cs" />
     <Compile Include="src\utils\MathUtils.cs" />
   </ItemGroup>
   <ItemGroup>
