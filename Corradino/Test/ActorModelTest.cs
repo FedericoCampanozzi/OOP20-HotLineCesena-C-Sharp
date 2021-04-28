@@ -22,11 +22,18 @@ namespace Test
                 new Dictionary<ActorStatus, double>());
         }
 
+        [TearDown]
+        public void Update()
+        {
+            _actor.Update(0.0);
+        }
+
         [Test]
         public void ActorMove()
         {
             _actor.Move(Direction.North.Get);
             Assert.That(_actor.Position, Is.EqualTo(Direction.North.Get.Multiply(Speed)));
+            Assert.That(_actor.Status, Is.EqualTo(ActorStatus.Moving));
         }
 
         [Test]
@@ -34,6 +41,7 @@ namespace Test
         {
             _actor.Angle = 90.0;
             Assert.That(_actor.Angle, Is.EqualTo(90.0));
+            Assert.That(_actor.Status, Is.EqualTo(ActorStatus.Idle));
         }
 
         [Test]
@@ -45,6 +53,7 @@ namespace Test
             double unrealDamage = 2000.0;
             _actor.TakeDamage(unrealDamage);
             Assert.That(_actor.CurrentHealth, Is.EqualTo(0.0));
+            Assert.That(_actor.Status, Is.EqualTo(ActorStatus.Dead));
         }
 
         [Test]

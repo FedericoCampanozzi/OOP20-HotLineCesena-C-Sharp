@@ -59,7 +59,8 @@ namespace OOP20_HotlineCesena_csharp.model.entities.actors
 
         public void Update(double timeElapsed)
         {
-            // Not implemented
+            // Partially implemented
+            Status = ActorStatus.Idle;
         }
 
         /// <summary>
