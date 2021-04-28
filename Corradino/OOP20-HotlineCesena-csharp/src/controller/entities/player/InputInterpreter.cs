@@ -15,14 +15,14 @@ namespace OOP20_HotlineCesena_csharp.controller.entities.player
     {
         const float Deadzone = 50.0f;
         readonly IDictionary<Enum, string> _bindings;
-        readonly IDictionary<string, Action<IPlayer>> _continuousActions;
+        readonly IDictionary<string, ICommand> _continuousActions;
         readonly IDictionary<string, IDirection> _movements;
-        readonly IDictionary<string, Action<IPlayer>> _oneTimeActions;
+        readonly IDictionary<string, ICommand> _oneTimeActions;
         readonly ISet<string> _oneTimeHistory = new HashSet<string>();
         IPoint2D _currentMouseCoords = Point2D.Zero;
 
         public InputInterpreter(IDictionary<Enum, string> bindings, IDictionary<string, IDirection> movements,
-            IDictionary<string, Action<IPlayer>> continuousActions, IDictionary<string, Action<IPlayer>> oneTimeActions)
+            IDictionary<string, ICommand> continuousActions, IDictionary<string, ICommand> oneTimeActions)
         {
             (_bindings, _movements, _continuousActions, _oneTimeActions) = (
                 Objects.RequireNonNull(bindings),
@@ -32,10 +32,10 @@ namespace OOP20_HotlineCesena_csharp.controller.entities.player
                 );
         }
 
-        public ICollection<Action<IPlayer>> Interpret(Tuple<ISet<Enum>, IPoint2D> inputs, IPoint2D spritePosition,
+        public ICollection<ICommand> Interpret(Tuple<ISet<Enum>, IPoint2D> inputs, IPoint2D spritePosition,
             double deltaTime)
         {
-            var outList = new List<Action<IPlayer>>();
+            var outList = new List<ICommand>();
             (ISet<Enum> keysAndButtons, IPoint2D mouseCoords) = Objects.RequireNonNull(inputs);
             ISet<string> actionNames = ConvertBindings(keysAndButtons);
 
@@ -43,14 +43,14 @@ namespace OOP20_HotlineCesena_csharp.controller.entities.player
             IPoint2D moveDir = ProcessMovementDirection(actionNames);
             if (!Equals(moveDir, Direction.None.Get))
             {
-                outList.Add(Command.MoveCommand(moveDir.Multiply(deltaTime)));
+                outList.Add(new MoveCommand(moveDir.Multiply(deltaTime)));
             }
 
             // Compute new angle
             IPoint2D newMouseCoords = ProcessMouseCoordinates(mouseCoords, spritePosition);
             if (!_currentMouseCoords.Equals(newMouseCoords))
             {
-                outList.Add(Command.RotateCommand(MathUtils.MouseToDegrees(newMouseCoords)));
+                outList.Add(new RotateCommand(MathUtils.MouseToDegrees(newMouseCoords)));
                 _currentMouseCoords = newMouseCoords;
             }
 
@@ -92,9 +92,9 @@ namespace OOP20_HotlineCesena_csharp.controller.entities.player
                 : _currentMouseCoords;
         }
 
-        IEnumerable<Action<IPlayer>> ProcessOneTimeActions(ICollection<string> actions)
+        IEnumerable<ICommand> ProcessOneTimeActions(ICollection<string> actions)
         {
-            foreach (KeyValuePair<string, Action<IPlayer>> entry in _oneTimeActions)
+            foreach (KeyValuePair<string, ICommand> entry in _oneTimeActions)
             {
                 if (actions.Contains(entry.Key) && !_oneTimeHistory.Contains(entry.Key))
                 {
@@ -108,7 +108,7 @@ namespace OOP20_HotlineCesena_csharp.controller.entities.player
             }
         }
 
-        IEnumerable<Action<IPlayer>> ProcessContinuousActions(ICollection<string> actions)
+        IEnumerable<ICommand> ProcessContinuousActions(ICollection<string> actions)
         {
             return _continuousActions
                 .Where(e => actions.Contains(e.Key))

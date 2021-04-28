@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using OOP20_HotlineCesena_csharp.commons;
+using OOP20_HotlineCesena_csharp.controller.entities.player.command;
 using OOP20_HotlineCesena_csharp.model.entities.actors.player;
 
 namespace OOP20_HotlineCesena_csharp.controller.entities.player
@@ -28,7 +29,7 @@ namespace OOP20_HotlineCesena_csharp.controller.entities.player
         /// <returns> a set of Commands an external player controller
         /// may execute </returns>
         ///
-        ICollection<Action<IPlayer>> Interpret(Tuple<ISet<Enum>, IPoint2D> inputs, IPoint2D spritePosition,
+        ICollection<ICommand> Interpret(Tuple<ISet<Enum>, IPoint2D> inputs, IPoint2D spritePosition,
             double deltaTime);
     }
 }
