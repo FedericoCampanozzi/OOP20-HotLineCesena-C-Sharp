@@ -1,0 +1,4 @@
+﻿[*.{cs,vb}]
+
+# IDE0060: Rimuovere il parametro inutilizzato
+dotnet_diagnostic.IDE0060.severity = none
