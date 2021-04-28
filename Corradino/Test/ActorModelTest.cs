@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using NUnit.Framework;
 using OOP20_HotlineCesena_csharp.commons;
+using OOP20_HotlineCesena_csharp.model.entities;
 using OOP20_HotlineCesena_csharp.model.entities.actors;
 using OOP20_HotlineCesena_csharp.model.entities.actors.player;
 
@@ -14,16 +15,17 @@ namespace Test
         const double Height = 1.0;
         const double MaxHp = 100.0;
         IActor _actor;
+        readonly IDictionary<ActorStatus, double> _noiseMap = new Dictionary<ActorStatus, double>();
+        readonly IEnumerable<IEntity> _obstacles = new HashSet<IEntity>();
 
         [SetUp]
         public void Setup()
         {
-            _actor = new Player(Point2D.Zero, Width, Height, Angle, Speed, MaxHp,
-                new Dictionary<ActorStatus, double>());
+            _actor = new Player(Point2D.Zero, Width, Height, Angle, Speed, MaxHp, _noiseMap, _obstacles);
         }
 
         [TearDown]
-        public void Update()
+        public void ResetStatus()
         {
             _actor.Update(0.0);
         }
