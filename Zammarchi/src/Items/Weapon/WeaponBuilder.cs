@@ -1,9 +1,9 @@
-﻿using Zammarchi.Weapon.AttackStrategy;
+﻿using Zammarchi.Items.Weapon.AttackStrategy;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Zammarchi.Weapon
+namespace Zammarchi.Items.Weapon
 {
     class WeaponBuilder
     {

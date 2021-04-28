@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Zammarchi.Weapon.AttackStrategy
+namespace Zammarchi.Items.Weapon.AttackStrategy
 {
     public class SpreadShot : IAttackStrategy
     {
         public int ProjCount { get; } = 3;
-        readonly History history = History.Instance;
+        readonly Inventory inventory = Inventory.Instance;
 
         public void Shoot(Weapon weapon)
         {
             for (int i = 0; i < ProjCount; i++)
             {
-                history.DamageCounter += weapon.Damage;
-                history.ProjCounter++;
+                inventory.DamageCounter += weapon.Damage;
+                inventory.ProjCounter++;
             }
             weapon.Magazine--;
         }

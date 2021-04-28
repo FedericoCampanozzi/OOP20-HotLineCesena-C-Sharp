@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Zammarchi.Weapon.AttackStrategy
+namespace Zammarchi.Items.Weapon.AttackStrategy
 {
     public class SingleStraightShot : IAttackStrategy
     {
-        readonly History history = History.Instance;
+        readonly Inventory inventory = Inventory.Instance;
 
         public void Shoot(Weapon weapon)
         {
-            history.DamageCounter += weapon.Damage;
-            history.ProjCounter++;
+            inventory.DamageCounter += weapon.Damage;
+            inventory.ProjCounter++;
             weapon.Magazine--;
         }
     }

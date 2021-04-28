@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Zammarchi.Weapon.AttackStrategy;
+using Zammarchi.Items.Weapon.AttackStrategy;
+using Zammarchi.Items;
 
-namespace Zammarchi.Weapon
+namespace Zammarchi.Items.Weapon
 {
-    public class Weapon
+    public class Weapon : IItems
     {
         public WeaponType weaponType;
 
@@ -42,5 +41,9 @@ namespace Zammarchi.Weapon
             Magazine = MagazineSize;
         }
 
+        public void Usage()
+        {
+            Fire();
+        }
     }
 }

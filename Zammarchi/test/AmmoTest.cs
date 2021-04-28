@@ -1,29 +1,28 @@
 ﻿using NUnit.Framework;
 using Zammarchi;
-using Zammarchi.Weapon;
-using Zammarchi.Weapon.AttackStrategy;
+using Zammarchi.Items.Weapon;
 using System;
 
 namespace Test
 {
     public class AmmoTest
     {
-        History history;
+        Inventory inventory;
 
         [SetUp]
         public void SetUp()
         {
-            this.history = History.Instance;
+            this.inventory = Inventory.Instance;
         }
 
         [TearDown]
         public void Update()
         {
-            this.history.Reset();
+            this.inventory.Reset();
         }
 
         [Test]
-        public void AmmoDec()
+        public void AmmoDecTest()
         {
             Weapon rifle = new Weapon(WeaponType.Rifle);
             int attackCounter = 5;
@@ -35,7 +34,7 @@ namespace Test
         }
 
         [Test]
-        public void Reaload()
+        public void RealoadTest()
         {
             Weapon rifle = new Weapon(WeaponType.Rifle);
             int attackCounter = rifle.Magazine + 1;

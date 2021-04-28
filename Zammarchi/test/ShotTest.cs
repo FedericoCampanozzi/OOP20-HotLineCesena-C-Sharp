@@ -1,52 +1,52 @@
 ﻿using NUnit.Framework;
 using Zammarchi;
-using Zammarchi.Weapon;
-using Zammarchi.Weapon.AttackStrategy;
+using Zammarchi.Items.Weapon;
+using Zammarchi.Items.Weapon.AttackStrategy;
 using System;
 
 namespace Test
 {
     public class ShotTest
     {
-        History history;
+        Inventory inventory;
 
         [SetUp]
         public void SetUp()
         {
-            this.history = History.Instance;
+            this.inventory = Inventory.Instance;
         }
 
         [TearDown]
         public void Update()
         {
-            this.history.Reset();
+            this.inventory.Reset();
         }
 
         [Test]
-        public void RifleShot()
+        public void RifleShotTest()
         {
             Weapon rifle = new Weapon(WeaponType.Rifle);
             rifle.Fire();
-            Assert.That(history.ProjCounter, Is.EqualTo(1));
-            Assert.That(history.DamageCounter, Is.EqualTo(rifle.Damage));
+            Assert.That(inventory.ProjCounter, Is.EqualTo(1));
+            Assert.That(inventory.DamageCounter, Is.EqualTo(rifle.Damage));
         }
 
         [Test]
-        public void PistolShot()
+        public void PistolShotTest()
         {
             Weapon pistol = new Weapon(WeaponType.Pistol);
             pistol.Fire();
-            Assert.That(history.ProjCounter, Is.EqualTo(1));
-            Assert.That(history.DamageCounter, Is.EqualTo(pistol.Damage));
+            Assert.That(inventory.ProjCounter, Is.EqualTo(1));
+            Assert.That(inventory.DamageCounter, Is.EqualTo(pistol.Damage));
         }
 
         [Test]
-        public void ShotgunShot()
+        public void ShotgunShotTest()
         {
             Weapon shotgun = new Weapon(WeaponType.Shotgun);
             shotgun.Fire();
-            Assert.That(history.ProjCounter, Is.EqualTo(new SpreadShot().ProjCount));
-            Assert.That(history.DamageCounter, Is.EqualTo(shotgun.Damage * new SpreadShot().ProjCount));
+            Assert.That(inventory.ProjCounter, Is.EqualTo(new SpreadShot().ProjCount));
+            Assert.That(inventory.DamageCounter, Is.EqualTo(shotgun.Damage * new SpreadShot().ProjCount));
         }
     }
 }

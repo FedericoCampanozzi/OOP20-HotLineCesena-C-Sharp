@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Zammarchi.Weapon.AttackStrategy
+namespace Zammarchi.Items.Weapon.AttackStrategy
 {
     public interface IAttackStrategy
     {

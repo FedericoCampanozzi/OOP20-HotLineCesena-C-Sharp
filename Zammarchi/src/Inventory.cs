@@ -4,16 +4,20 @@ using System.Text;
 
 namespace Zammarchi
 {
-    public sealed class History
+    public sealed class Inventory
     {
-        History()
+        public int DamageCounter { get; set; } = 0;
+        public int ProjCounter { get; set; } = 0;
+        public int MoneyCounter { get; set; } = 0;
+        public int AmmoCounter { get; set; } = 0;
+        Inventory()
         {
         }
 
         private static readonly object padlock = new object();
-        private static History instance = null;
+        private static Inventory instance = null;
 
-        public static History Instance
+        public static Inventory Instance
         {
             get
             {
@@ -23,7 +27,7 @@ namespace Zammarchi
                     {
                         if (instance == null)
                         {
-                            instance = new History();
+                            instance = new Inventory();
                         }
                     }
                 }
@@ -33,11 +37,7 @@ namespace Zammarchi
 
         public void Reset()
         {
-            instance = new History();
+            instance = new Inventory();
         }
-
-        public int DamageCounter { get; set; } = 0;
-        public int ProjCounter { get; set; } = 0;
-
     }
 }
