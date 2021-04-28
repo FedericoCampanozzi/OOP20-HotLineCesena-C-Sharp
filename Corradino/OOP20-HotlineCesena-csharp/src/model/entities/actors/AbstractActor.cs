@@ -13,12 +13,15 @@ namespace OOP20_HotlineCesena_csharp.model.entities.actors
         }
 
         public double MaxHealth { get; }
+        
         public double CurrentHealth { get; private set; }
+        
         public ActorStatus Status { get; protected set; }
 
         public void Attack()
         {
-            // Not implemented.
+            // Not implemented
+            Status = ActorStatus.Attacking;
         }
 
         public void Heal(double hp)
