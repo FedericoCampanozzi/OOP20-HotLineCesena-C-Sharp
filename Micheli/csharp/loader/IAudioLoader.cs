@@ -12,6 +12,6 @@ namespace Micheli.loader
         /// </summary>
         /// <param name="audio">the type of audio</param>
         /// <returns>a new Audio</returns>
-        Audio GetAudio(AudioType audio);
+        Audio GetAudio(FileType audio);
     }
 }

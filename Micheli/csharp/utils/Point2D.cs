@@ -6,17 +6,7 @@
     public class Point2D
     {
         /// <summary>
-        /// Gests the x coordinate.
-        /// </summary>
-        public double _x { get; }
-
-        /// <summary>
-        /// Gets the y coordinate.
-        /// </summary>
-        public double _y { get; }
-
-        /// <summary>
-        /// Class constructor.
+        /// Initializes a new instance of the <see cref="Point2D"/> class.
         /// </summary>
         /// <param name="x">x position</param>
         /// <param name="y">y position</param>
@@ -25,6 +15,16 @@
             this._x = x;
             this._y = y;
         }
+
+        /// <summary>
+        /// Gets the x coordinate.
+        /// </summary>
+        public double _x { get; }
+
+        /// <summary>
+        /// Gets the y coordinate.
+        /// </summary>
+        public double _y { get; }
 
         /// <summary>
         /// Adds two points together.

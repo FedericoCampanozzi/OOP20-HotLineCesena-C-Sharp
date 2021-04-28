@@ -22,8 +22,8 @@ namespace Micheli.enemy.ai.strategy
         /// <returns>an ordered collections of positions</returns>
         internal static List<Point2D> FindPath(Point2D start, Point2D end, int width, int height, HashSet<Point2D> map)
         {
-            List<Node> toVisit = new List<Node>();
-            HashSet<Node> visited = new HashSet<Node>();
+            var toVisit = new List<Node>();
+            var visited = new HashSet<Node>();
 
             Node[,] nodeMap = new Node[width, height];
             Node current;
@@ -32,7 +32,7 @@ namespace Micheli.enemy.ai.strategy
 
             for (int y = 0; y <= height - 1; y++)
             {
-                for(int x = 0; x <= width - 1; x++)
+                for (int x = 0; x <= width - 1; x++)
                 {
                     int heuristic = Math.Abs(x - (int)end._x) + Math.Abs(y - (int)end._y);
                     Node node = new Node(0, heuristic, x, y);
@@ -40,10 +40,10 @@ namespace Micheli.enemy.ai.strategy
                 }
             }
 
-            startNode = nodeMap[(int) start._x, (int) start._y];
-            endNode = nodeMap[(int) end._x, (int) end._y];
+            startNode = nodeMap[(int)start._x, (int)start._y];
+            endNode = nodeMap[(int)end._x, (int)end._y];
 
-            if(startNode.Equals(endNode))
+            if (startNode.Equals(endNode))
             {
                 return NoPathAviable(startNode);
             }
@@ -56,16 +56,16 @@ namespace Micheli.enemy.ai.strategy
                 toVisit.Remove(current);
                 visited.Add(current);
 
-                if(current.Equals(endNode))
+                if (current.Equals(endNode))
                 {
                     return GetPath(current);
                 }
 
-                for (int y = (int) current.GetPosition._y; y < (int)current.GetPosition._y + 2; y++)
+                for (int y = (int)current.GetPosition._y; y < (int)current.GetPosition._y + 2; y++)
                 {
                     for (int x = (int)current.GetPosition._x; x < (int)current.GetPosition._x + 2; x++)
                     {
-                        if(map.ToList().Exists(e => e.Equals(new Point2D(x, y))))
+                        if (map.ToList().Exists(e => e.Equals(new Point2D(x, y))))
                         {
                             Node neighbor = nodeMap[x, y];
 
@@ -78,12 +78,12 @@ namespace Micheli.enemy.ai.strategy
                                 + neighbor.MoveCost
                                 + neighbor.TotalCost;
 
-                            if(calculatedCost < neighbor.TotalCost || !toVisit.Contains(neighbor))
+                            if (calculatedCost < neighbor.TotalCost || !toVisit.Contains(neighbor))
                             {
                                 neighbor.TotalCost = calculatedCost;
                                 neighbor.Parent = current;
 
-                                if(!toVisit.Contains(neighbor))
+                                if (!toVisit.Contains(neighbor))
                                 {
                                     toVisit.Add(neighbor);
                                 }
@@ -91,9 +91,7 @@ namespace Micheli.enemy.ai.strategy
                         }
                     }
                 }
-
             } while (toVisit.Count != 0);
-
 
             return NoPathAviable(startNode);
         }
@@ -106,7 +104,7 @@ namespace Micheli.enemy.ai.strategy
         /// <returns>a collections of points</returns>
         private static List<Point2D> NoPathAviable(Node start)
         {
-            List<Point2D> path = new List<Point2D>();
+            var path = new List<Point2D>();
             path.Add(start.GetPosition);
 
             return path;
@@ -120,9 +118,9 @@ namespace Micheli.enemy.ai.strategy
         /// <returns>a collections of points</returns>
         private static List<Point2D> GetPath(Node last)
         {
-            List<Point2D> path = new List<Point2D>();
+            var path = new List<Point2D>();
 
-            while(last.Parent != null)
+            while (last.Parent != null)
             {
                 path.Add(last.GetPosition);
                 last = last.Parent;
@@ -139,14 +137,11 @@ namespace Micheli.enemy.ai.strategy
         {
             public readonly int MoveCost;
             public readonly int Heuristic;
-            public int TotalCost { get; set; }
-            public Node Parent { get; set; }
-
             private int _x;
             private int _y;
 
             /// <summary>
-            /// Class constructor.
+            /// Initializes a new instance of the <see cref="Node"/> class.
             /// </summary>
             /// <param name="moveCost">the cost to move to this node</param>
             /// <param name="heuristic">the cost based on the distance between
@@ -159,13 +154,12 @@ namespace Micheli.enemy.ai.strategy
                 this.Heuristic = heuristic;
                 this._x = x;
                 this._y = y;
-                Parent = null;
+                this.Parent = null;
             }
 
-            public int Compare(Node current, Node next)
-            {
-                return current.TotalCost.CompareTo(next.TotalCost);
-            }
+            public int TotalCost { get; set; }
+
+            public Node Parent { get; set; }
 
             /// <summary>
             /// Gets the Node's position.
@@ -173,6 +167,11 @@ namespace Micheli.enemy.ai.strategy
             public Point2D GetPosition
             {
                 get => new Point2D(this._x, this._y);
+            }
+
+            public int Compare(Node current, Node next)
+            {
+                return current.TotalCost.CompareTo(next.TotalCost);
             }
         }
     }

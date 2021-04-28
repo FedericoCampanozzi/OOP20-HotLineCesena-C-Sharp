@@ -12,7 +12,7 @@ namespace Micheli.loader
         private IAudioLoader _loader;
 
         /// <summary>
-        /// Class constructor.
+        /// Initializes a new instance of the <see cref="ProxyAudio"/> class.
         /// </summary>
         public ProxyAudio()
         {
@@ -20,11 +20,11 @@ namespace Micheli.loader
             this._loader = new ProxyAudioLoader();
         }
 
-        public Audio GetAudio(AudioType audio)
+        public Audio GetAudio(FileType audio)
         {
-            if(this._loadedAudio.ContainsKey(audio.ToString()))
+            if (this._loadedAudio.ContainsKey(audio.ToString()))
             {
-                return this._loader.GetAudio(AudioType.IN_MAP);
+                return this._loader.GetAudio(FileType.InMap);
             }
             else
             {
@@ -38,7 +38,7 @@ namespace Micheli.loader
         /// </summary>
         private class ProxyAudioLoader : IAudioLoader
         {
-            public Audio GetAudio(AudioType audio)
+            public Audio GetAudio(FileType audio)
             {
                 return new Audio(audio);
             }

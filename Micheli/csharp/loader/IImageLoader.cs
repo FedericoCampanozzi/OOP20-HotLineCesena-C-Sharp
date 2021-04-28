@@ -17,6 +17,6 @@ namespace Micheli.loader
         /// </summary>
         /// <param name="image">the image type</param>
         /// <returns>a new Image</returns>
-        Image GetImage(ImageType image);
+        Image GetImage(FileType image);
     }
 }

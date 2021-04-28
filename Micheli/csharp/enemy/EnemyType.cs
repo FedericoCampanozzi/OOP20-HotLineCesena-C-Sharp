@@ -5,9 +5,24 @@
     /// </summary>
     public enum EnemyType
     {
-        IDLE,
-        RANDOM_MOVEMENT,
-        PATROLLING,
-        BOSS
+        /// <summary>
+        /// Idle move pattern.
+        /// </summary>
+        Idle,
+
+        /// <summary>
+        /// Random movement move pattern.
+        /// </summary>
+        RandomMovement,
+
+        /// <summary>
+        /// Patrolling move pattern.
+        /// </summary>
+        Patrolling,
+
+        /// <summary>
+        /// Patrolling move pattern.
+        /// </summary>
+        Boss
     }
 }

@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using NUnit.Framework;
-using System.Linq;
-using Micheli.enemy;
+﻿using System.Collections.Generic;
 using Micheli.enemy.ai.strategy;
 using Micheli.utils;
+using NUnit.Framework;
 
 namespace Micheli.test.pathfindingTest
 {
@@ -13,7 +10,7 @@ namespace Micheli.test.pathfindingTest
     /// </summary>
     public class PathFinderTest
     {
-        private const int dimensions = 5;
+        private const int Dimensions = 5;
         private HashSet<Point2D> _walkable = new HashSet<Point2D>();
         private List<Point2D> _path;
         private Point2D _startingPos;
@@ -23,11 +20,11 @@ namespace Micheli.test.pathfindingTest
         public void SetUp()
         {
             this._startingPos = new Point2D(0, 0);
-            this._endPos = new Point2D(dimensions - 1, dimensions - 1);
+            this._endPos = new Point2D(Dimensions - 1, Dimensions - 1);
 
-            for (int y = 0; y < dimensions; y++)
+            for (int y = 0; y < Dimensions; y++)
             {
-                for (int x = 0; x < dimensions; x++)
+                for (int x = 0; x < Dimensions; x++)
                 {
                     this._walkable.Add(new Point2D(x, y));
                 }
@@ -37,7 +34,7 @@ namespace Micheli.test.pathfindingTest
         [Test]
         public void FindPathTest()
         {
-            this._path = Pathfinder.FindPath(this._startingPos, this._endPos, dimensions, dimensions, this._walkable);
+            this._path = Pathfinder.FindPath(this._startingPos, this._endPos, Dimensions, Dimensions, this._walkable);
 
             // path should not be null
             Assert.IsNotNull(this._path);

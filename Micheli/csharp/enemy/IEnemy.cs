@@ -15,15 +15,14 @@ namespace Micheli.enemy
         Point2D GetPosition { get; }
 
         /// <summary>
-        /// Gets the current rotation of the enemy.
+        /// Gets or sets the current rotation of the enemy.
         /// </summary>
         double GetRotation { get; set; }
 
         /// <summary>
-        /// Moves the enemy to the indicated direction.
+        /// Gets the collections of points that are walkable by the enemy.
         /// </summary>
-        /// <param name="direction">the point to move to</param>
-        void executeMovement(Point2D direction);
+        HashSet<Point2D> GetWalkable { get; }
 
         /// <summary>
         /// Gets the AI of the enemy.
@@ -36,13 +35,14 @@ namespace Micheli.enemy
         EnemyType GetEnemyType { get; }
 
         /// <summary>
-        /// Gest or Sets if the enemy is chasing the target.
+        /// Gets or sets if the enemy is chasing the target.
         /// </summary>
         bool Pursuit { get; set; }
 
         /// <summary>
-        /// Gets the collections of points that are walkable by the enemy.
+        /// Moves the enemy to the indicated direction.
         /// </summary>
-        HashSet<Point2D> GetWalkable { get; }
+        /// <param name="direction">the point to move to</param>
+        void ExecuteMovement(Point2D direction);
     }
 }

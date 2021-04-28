@@ -8,17 +8,17 @@ namespace Micheli.utils
     public class Audio
     {
         /// <summary>
-        /// Gets the AudioType of the current Audio.
-        /// </summary>
-        public AudioType GetAudioType { get; }
-
-        /// <summary>
-        /// Class constructor.
+        /// Initializes a new instance of the <see cref="Audio"/> class.
         /// </summary>
         /// <param name="audioType">the type of audio</param>
-        public Audio(AudioType audioType)
+        public Audio(FileType audioType)
         {
             this.GetAudioType = audioType;
         }
+
+        /// <summary>
+        /// Gets the AudioType of the current Audio.
+        /// </summary>
+        public FileType GetAudioType { get; }
     }
 }

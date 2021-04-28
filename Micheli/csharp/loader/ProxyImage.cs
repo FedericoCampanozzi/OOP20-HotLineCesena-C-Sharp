@@ -8,25 +8,23 @@ namespace Micheli.loader
     /// </summary>
     public class ProxyImage : IImageLoader
     {
-
         private Dictionary<string, Image> _loadedImage;
         private IImageLoader _loader;
 
         /// <summary>
-        /// Class constructor.
+        /// Initializes a new instance of the <see cref="ProxyImage"/> class.
         /// </summary>
         public ProxyImage()
         {
             this._loadedImage = new Dictionary<string, Image>();
             this._loader = new ProxyImageLoader();
-
         }
 
-        public Image GetImage(ImageType image)
+        public Image GetImage(FileType image)
         {
             if (this._loadedImage.ContainsKey(image.ToString()))
             {
-                return this._loader.GetImage(ImageType.IN_MAP);
+                return this._loader.GetImage(FileType.InMap);
             }
             else
             {
@@ -40,7 +38,7 @@ namespace Micheli.loader
         /// </summary>
         private class ProxyImageLoader : IImageLoader
         {
-            public Image GetImage(ImageType image)
+            public Image GetImage(FileType image)
             {
                 return new Image(image);
             }

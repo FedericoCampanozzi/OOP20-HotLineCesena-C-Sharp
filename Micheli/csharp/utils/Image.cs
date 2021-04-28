@@ -8,17 +8,17 @@ namespace Micheli.utils
     public class Image
     {
         /// <summary>
-        /// Gets the ImageType of the current Image.
-        /// </summary>
-        public ImageType GetImageType { get; }
-
-        /// <summary>
-        /// Class constructor.
+        /// Initializes a new instance of the <see cref="Image"/> class.
         /// </summary>
         /// <param name="imageType">the type of image</param>
-        public Image(ImageType imageType)
+        public Image(FileType imageType)
         {
             this.GetImageType = imageType;
         }
+
+        /// <summary>
+        /// Gets the ImageType of the current Image.
+        /// </summary>
+        public FileType GetImageType { get; }
     }
 }

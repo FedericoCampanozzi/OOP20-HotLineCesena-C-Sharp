@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using NUnit.Framework;
 using Micheli.enemy;
 using Micheli.utils;
+using NUnit.Framework;
 
 namespace Micheli.test.enemyTest
 {
@@ -19,7 +18,7 @@ namespace Micheli.test.enemyTest
         [SetUp]
         public void SetUp()
         {
-            this._enemy = new Enemy(new Point2D(0, 0), new NaiveInventory(), 0, EnemyType.IDLE, this._walkable, this._walls);
+            this._enemy = new Enemy(new Point2D(0, 0), new NaiveInventory(), 0, EnemyType.Idle, this._walkable, this._walls);
         }
 
         [Test]
@@ -38,7 +37,7 @@ namespace Micheli.test.enemyTest
             Assert.False(this._enemy.GetAI.IsShooting(this._target));
 
             this._walls = new HashSet<Point2D>() { new Point2D(1, 0) };
-            this._enemy = new Enemy(new Point2D(0, 0), new NaiveInventory(), 0, EnemyType.IDLE, this._walkable, this._walls);
+            this._enemy = new Enemy(new Point2D(0, 0), new NaiveInventory(), 0, EnemyType.Idle, this._walkable, this._walls);
             this._target = new Point2D(2, 0);
 
             // line of target obscured target not visible

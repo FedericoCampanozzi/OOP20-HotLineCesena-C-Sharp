@@ -8,7 +8,7 @@ namespace Micheli.utils
     /// </summary>
     public static class EnemyPhysicsUtils
     {
-        public const int MAP_DIMENSION = 1;
+        public const int MapDimension = 1;
 
         /// <summary>
         /// Returns if the position that wants to be reached
@@ -20,7 +20,7 @@ namespace Micheli.utils
         /// <returns>if the next position is walkable</returns>
         public static bool IsMovementAllowed(Point2D current, Point2D next, HashSet<Point2D> map)
         {            
-            return map.ToList().Exists(e => e.Equals(MathUtils.roundedSumPoint2D(current, next)));
+            return map.ToList().Exists(e => e.Equals(MathUtility.RoundedSumPoint2D(current, next)));
         }
 
         /// <summary>
@@ -44,10 +44,8 @@ namespace Micheli.utils
                 return false;
             }
 
-            while ((distanceX > 0 ? x > target._x : x < target._x)
-                    || (distanceY > 0 ? y > target._y : y < target._y))
+            while ((distanceX > 0 ? x > target._x : x < target._x) || (distanceY > 0 ? y > target._y : y < target._y))
             {
-
                 if (walls.ToList().Exists(e => e.Equals(new Point2D(x, y))))
                 {
                     return true;
@@ -57,10 +55,12 @@ namespace Micheli.utils
                 {
                     x = distanceX > 0 ? x - 1 : x + 1;
                 }
+
                 if (distanceY != 0)
                 {
                     y = distanceY > 0 ? y - 1 : y + 1;
                 }
+
             }
             return false;
         }

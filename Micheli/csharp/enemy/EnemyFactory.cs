@@ -1,6 +1,6 @@
-﻿using Micheli.utils;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Micheli.utils;
 
 namespace Micheli.enemy
 {
@@ -11,10 +11,10 @@ namespace Micheli.enemy
     {
         public Enemy GetEnemy(Point2D pos, EnemyType type, HashSet<Point2D> walkable, HashSet<Point2D> walls)
         {
-            switch(type)
+            switch (type)
             {
-                case EnemyType.BOSS:
-                    return new Enemy(pos, new NaiveInventory(), RandomRotation(), EnemyType.PATROLLING, walkable, walls);
+                case EnemyType.Boss:
+                    return new Enemy(pos, new NaiveInventory(), RandomRotation(), EnemyType.Patrolling, walkable, walls);
                 default:
                     return new Enemy(pos, new NaiveInventory(), RandomRotation(), type, walkable, walls);
             }

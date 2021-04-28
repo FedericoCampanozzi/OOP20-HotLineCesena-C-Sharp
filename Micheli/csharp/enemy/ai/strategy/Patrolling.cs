@@ -13,12 +13,17 @@ namespace Micheli.enemy.ai.strategy
         private Point2D _nextMove;
 
         /// <summary>
-        /// Class constructor.
+        /// Initializes a new instance of the <see cref="Patrolling"/> class.
         /// </summary>
         public Patrolling()
         {
             this.FillStack();
             this._nextMove = this.NewMove();
+        }
+
+        public Point2D Move(Point2D enemy, Point2D player, bool pursuit, HashSet<Point2D> map)
+        {
+            return !pursuit ? this.NormalMovement(enemy, map) : this.PursuitMovement(enemy, player, map);
         }
 
         /// <summary>
@@ -45,8 +50,8 @@ namespace Micheli.enemy.ai.strategy
         /// Returns a new position to move to, following
         /// a clockwise pattern.
         /// </summary>
-        /// <param name="pos"></param>
-        /// <param name="map"></param>
+        /// <param name="pos">the current position</param>
+        /// <param name="map">the collections of points that are walkable by the enemy</param>
         /// <returns>a new position</returns>
         private Point2D NormalMovement(Point2D pos, HashSet<Point2D> map)
         {
@@ -80,21 +85,15 @@ namespace Micheli.enemy.ai.strategy
             if (this._pathfindingList.Count == 0
                 || !this._pathfindingList[this._pathfindingList.Count - 1].Equals(end))
             {
-                this._pathfindingList = Pathfinder.FindPath(start, end, EnemyPhysicsUtils.MAP_DIMENSION, EnemyPhysicsUtils.MAP_DIMENSION, map);
+                this._pathfindingList = Pathfinder.FindPath(start, end, EnemyPhysicsUtils.MapDimension, EnemyPhysicsUtils.MapDimension, map);
             }
 
             if (this._pathfindingList.Count != 0 && start.Equals(this._pathfindingList[0]))
             {
-                retval = new Point2D(this._pathfindingList[0]._x - start._x,
-                    this._pathfindingList[0]._y - start._y);
+                retval = new Point2D(this._pathfindingList[0]._x - start._x, this._pathfindingList[0]._y - start._y);
             }
 
             return retval != null && EnemyPhysicsUtils.IsMovementAllowed(start, retval, map) ? retval : new Point2D(0, 0);
-        }
-
-        public Point2D Move(Point2D enemy, Point2D player, bool pursuit, HashSet<Point2D> map)
-        {
-            return !pursuit ? this.NormalMovement(enemy, map) : this.PursuitMovement(enemy, player, map);
         }
     }
 }
