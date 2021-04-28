@@ -1,4 +1,5 @@
 ﻿using OOP20_HotlineCesena_csharp.commons;
+using OOP20_HotlineCesena_csharp.utils;
 
 namespace OOP20_HotlineCesena_csharp.model.entities
 {
@@ -28,8 +29,14 @@ namespace OOP20_HotlineCesena_csharp.model.entities
 
         public bool IsCollidingWith(IPoint2D newPosition, IEntity other)
         {
-            // Not implemented.
-            return false;
+            return MathUtils.IsCollision(
+                Objects.RequireNonNull(newPosition),
+                Width,
+                Height,
+                Objects.RequireNonNull(other).Position,
+                other.Width,
+                other.Height
+                );
         }
 
         /// <inheritdoc />
