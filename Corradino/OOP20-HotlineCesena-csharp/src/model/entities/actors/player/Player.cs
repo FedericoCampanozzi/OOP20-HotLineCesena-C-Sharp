@@ -18,18 +18,7 @@ namespace OOP20_HotlineCesena_csharp.model.entities.actors.player
             _noiseMap = Objects.RequireNonNull(noiseMap);
         }
 
-        public double NoiseRadius
-        {
-            get
-            {
-                if (_noiseMap.ContainsKey(Status))
-                {
-                    return _noiseMap[Status];
-                }
-
-                return DefaultNoiseLevel;
-            }
-        }
+        public double NoiseRadius => _noiseMap.ContainsKey(Status) ? _noiseMap[Status] : DefaultNoiseLevel;
 
         public void Use()
         {

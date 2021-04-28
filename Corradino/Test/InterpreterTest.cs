@@ -4,8 +4,6 @@ using NUnit.Framework;
 using OOP20_HotlineCesena_csharp.commons;
 using OOP20_HotlineCesena_csharp.controller.entities.player;
 using OOP20_HotlineCesena_csharp.controller.entities.player.command;
-using OOP20_HotlineCesena_csharp.model.entities.actors.player;
-using OOP20_HotlineCesena_csharp.utils;
 
 namespace Test
 {
@@ -28,14 +26,14 @@ namespace Test
             {MouseButton.Primary, "attack"}
         };
 
-        readonly IDictionary<string, Action<IPlayer>> _continuousActions = new Dictionary<string, Action<IPlayer>>
+        readonly IDictionary<string, ICommand> _continuousActions = new Dictionary<string, ICommand>
         {
-            {"attack", p => p.Attack()},
-            {"reload", p => p.Reload()},
-            {"use", p => p.Use()}
+            {"attack", new AttackCommand()},
+            {"reload", new ReloadCommand()},
+            {"use", new UseCommand()}
         };
 
-        readonly IDictionary<string, Action<IPlayer>> _oneTimeActions = new Dictionary<string, Action<IPlayer>>();
+        readonly IDictionary<string, ICommand> _oneTimeActions = new Dictionary<string, ICommand>();
 
         readonly IDictionary<string, IDirection> _movements = new Dictionary<string, IDirection>
         {
@@ -58,7 +56,7 @@ namespace Test
         public void DeliverNothingWhenReceivingNoInputs()
         {
             var inputs = new Tuple<ISet<Enum>, IPoint2D>(new HashSet<Enum>(), Point2D.Zero);
-            ICollection<Action<IPlayer>> commands = _interpreter.Interpret(inputs, SpritePos, DeltaTime);
+            ICollection<ICommand> commands = _interpreter.Interpret(inputs, SpritePos, DeltaTime);
             Assert.That(commands, Is.Empty);
         }
 
@@ -66,7 +64,7 @@ namespace Test
         public void DeliverNothingWhenReceivingUnboundInputs()
         {
             var inputs = new Tuple<ISet<Enum>, IPoint2D>(new HashSet<Enum> {KeyCode.J}, Point2D.Zero);
-            ICollection<Action<IPlayer>> commands = _interpreter.Interpret(inputs, SpritePos, DeltaTime);
+            ICollection<ICommand> commands = _interpreter.Interpret(inputs, SpritePos, DeltaTime);
             Assert.That(commands, Is.Empty);
         }
 
@@ -74,7 +72,7 @@ namespace Test
         public void DeliverMouseCommand()
         {
             var inputs = new Tuple<ISet<Enum>, IPoint2D>(new HashSet<Enum> {MouseButton.Primary}, Point2D.Zero);
-            ICollection<Action<IPlayer>> commands = _interpreter.Interpret(inputs, SpritePos, DeltaTime);
+            ICollection<ICommand> commands = _interpreter.Interpret(inputs, SpritePos, DeltaTime);
             Assert.That(commands, Has.Exactly(1).Items);
             Assert.That(commands, Does.Contain(_continuousActions[_bindings[MouseButton.Primary]]));
         }
@@ -83,7 +81,7 @@ namespace Test
         public void DeliverKeyCommand()
         {
             var inputs = new Tuple<ISet<Enum>, IPoint2D>(new HashSet<Enum> {KeyCode.E}, Point2D.Zero);
-            ICollection<Action<IPlayer>> commands = _interpreter.Interpret(inputs, SpritePos, DeltaTime);
+            ICollection<ICommand> commands = _interpreter.Interpret(inputs, SpritePos, DeltaTime);
             Assert.That(commands, Has.Exactly(1).Items);
             Assert.That(commands, Does.Contain(_continuousActions[_bindings[KeyCode.E]]));
         }
@@ -92,10 +90,9 @@ namespace Test
         public void DeliverMovement()
         {
             var inputs = new Tuple<ISet<Enum>, IPoint2D>(new HashSet<Enum> {KeyCode.W}, Point2D.Zero);
-            ICollection<Action<IPlayer>> commands = _interpreter.Interpret(inputs, SpritePos, DeltaTime);
-            Action<IPlayer> expected = Command.MoveCommand(_movements[_bindings[KeyCode.W]].Get);
+            ICollection<ICommand> commands = _interpreter.Interpret(inputs, SpritePos, DeltaTime);
             Assert.That(commands, Has.Exactly(1).Items);
-            Assert.That(commands, Has.One.Matches<Action<IPlayer>>(c => c.Method.Equals(expected.Method)));
+            Assert.That(commands, Has.One.Matches<ICommand>(c => c is MoveCommand));
         }
 
         [Test]
@@ -103,10 +100,9 @@ namespace Test
         {
             var mouseCoords = new Point2D(SceneWidth / 2.0, SceneHeight);
             var inputs = new Tuple<ISet<Enum>, IPoint2D>(new HashSet<Enum>(), mouseCoords);
-            ICollection<Action<IPlayer>> commands = _interpreter.Interpret(inputs, SpritePos, DeltaTime);
-            Action<IPlayer> expected = Command.RotateCommand(MathUtils.MouseToDegrees(mouseCoords));
+            ICollection<ICommand> commands = _interpreter.Interpret(inputs, SpritePos, DeltaTime);
             Assert.That(commands, Has.Exactly(1).Items);
-            Assert.That(commands, Has.One.Matches<Action<IPlayer>>(c => c.Method.Equals(expected.Method)));
+            Assert.That(commands, Has.One.Matches<ICommand>(c => c is RotateCommand));
         }
 
         enum KeyCode

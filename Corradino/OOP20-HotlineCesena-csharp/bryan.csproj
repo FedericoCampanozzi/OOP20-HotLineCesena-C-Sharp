@@ -40,7 +40,12 @@
     <Compile Include="src\commons\IPoint2D.cs" />
     <Compile Include="src\commons\Objects.cs" />
     <Compile Include="src\commons\Point2D.cs" />
-    <Compile Include="src\controller\entities\player\command\Command.cs" />
+    <Compile Include="src\controller\entities\player\command\AttackCommand.cs" />
+    <Compile Include="src\controller\entities\player\command\ICommand.cs" />
+    <Compile Include="src\controller\entities\player\command\MoveCommand.cs" />
+    <Compile Include="src\controller\entities\player\command\ReloadCommand.cs" />
+    <Compile Include="src\controller\entities\player\command\RotateCommand.cs" />
+    <Compile Include="src\controller\entities\player\command\UseCommand.cs" />
     <Compile Include="src\controller\entities\player\IInputInterpreter.cs" />
     <Compile Include="src\controller\entities\player\InputInterpreter.cs" />
     <Compile Include="src\model\entities\AbstractEntity.cs" />
