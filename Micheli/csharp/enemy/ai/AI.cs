@@ -149,10 +149,10 @@ namespace Micheli.enemy.ai
         /// <returns>the new enemy rotation</returns>
         private double RotationToTarget(Point2D target)
         {
-            double distanceX = Math.Abs(target._x - this._current._y);
-            double distanceY = Math.Abs(target._x - this._current._y);
+            double distanceX = Math.Abs(target.X - this._current.Y);
+            double distanceY = Math.Abs(target.X - this._current.Y);
 
-            return this.ToDegrees(Math.Atan2(this._current._y > target._y ? -distanceY : distanceY, this._current._x > target._x ? -distanceX : distanceX));
+            return this.ToDegrees(Math.Atan2(this._current.Y > target.Y ? -distanceY : distanceY, this._current.X > target.X ? -distanceX : distanceX));
         }
 
         /// <summary>
@@ -164,8 +164,8 @@ namespace Micheli.enemy.ai
         /// <returns>if the target is within the radius</returns>
         private bool IsInArea(Point2D target, int radius)
         {
-            return (((target._x - this._current._x) * (target._x - this._current._x))
-                + ((target._y - this._current._y) * (target._y - this._current._y))) <= radius * radius;
+            return (((target.X - this._current.X) * (target.X - this._current.X))
+                + ((target.Y - this._current.Y) * (target.Y - this._current.Y))) <= radius * radius;
         }
 
         /// <summary>

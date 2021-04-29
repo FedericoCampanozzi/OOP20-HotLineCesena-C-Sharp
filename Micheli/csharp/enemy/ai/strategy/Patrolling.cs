@@ -90,7 +90,7 @@ namespace Micheli.enemy.ai.strategy
 
             if (this._pathfindingList.Count != 0 && start.Equals(this._pathfindingList[0]))
             {
-                retval = new Point2D(this._pathfindingList[0]._x - start._x, this._pathfindingList[0]._y - start._y);
+                retval = new Point2D(this._pathfindingList[0].X - start.X, this._pathfindingList[0].Y - start.Y);
             }
 
             return retval != null && EnemyPhysicsUtils.IsMovementAllowed(start, retval, map) ? retval : new Point2D(0, 0);

@@ -12,19 +12,19 @@
         /// <param name="y">y position</param>
         public Point2D(double x, double y)
         {
-            this._x = x;
-            this._y = y;
+            this.X = x;
+            this.Y = y;
         }
 
         /// <summary>
         /// Gets the x coordinate.
         /// </summary>
-        public double _x { get; }
+        public double X { get; }
 
         /// <summary>
         /// Gets the y coordinate.
         /// </summary>
-        public double _y { get; }
+        public double Y { get; }
 
         /// <summary>
         /// Adds two points together.
@@ -33,7 +33,7 @@
         /// <returns>a new point</returns>
         public Point2D Add(Point2D arg1)
         {
-            return new Point2D(this._x + arg1._x, this._y + arg1._y);
+            return new Point2D(this.X + arg1.X, this.Y + arg1.Y);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@
         /// <returns>a new point</returns>
         public Point2D Multiply(double val)
         {
-            return new Point2D(this._x * val, this._y * val);
+            return new Point2D(this.X * val, this.Y * val);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@
         /// <returns>a new point</returns>
         public bool Equals(Point2D arg1)
         {
-            return this._x == arg1._x && this._y == arg1._y;
+            return this.X == arg1.X && this.Y == arg1.Y;
         }
     }
 }
