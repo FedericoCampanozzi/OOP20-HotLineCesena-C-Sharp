@@ -23,13 +23,7 @@ namespace Zammarchi
             {
                 if (instance == null)
                 {
-                    lock (padlock)
-                    {
-                        if (instance == null)
-                        {
-                            instance = new Inventory();
-                        }
-                    }
+                    instance = new Inventory();
                 }
                 return instance;
             }

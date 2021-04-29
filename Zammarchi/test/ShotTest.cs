@@ -6,6 +6,9 @@ using System;
 
 namespace Test
 {
+    /// <summary>
+    ///     Tests the different types of fire strategies of the weapons.
+    /// </summary>
     public class ShotTest
     {
         Inventory inventory;
