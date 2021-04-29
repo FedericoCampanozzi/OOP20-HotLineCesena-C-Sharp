@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using OOP20_HotlineCesena_csharp.commons;
 
 namespace OOP20_HotlineCesena_csharp.model.entities.actors.player
@@ -10,12 +11,13 @@ namespace OOP20_HotlineCesena_csharp.model.entities.actors.player
     {
         const double DefaultNoiseLevel = 0.0;
         readonly IDictionary<ActorStatus, double> _noiseMap;
+        readonly IEnumerable<IEntity> _obstaclesOnMap;
 
         public Player(IPoint2D position, double width, double height, double angle, double speed,
-            double maxHealth, IDictionary<ActorStatus, double> noiseMap)
+            double maxHealth, IDictionary<ActorStatus, double> noiseMap, IEnumerable<IEntity> obstacles)
             : base(position, width, height, angle, speed, maxHealth)
         {
-            _noiseMap = Objects.RequireNonNull(noiseMap);
+            (_noiseMap, _obstaclesOnMap) = (Objects.RequireNonNull(noiseMap), Objects.RequireNonNull(obstacles));
         }
 
         public double NoiseRadius => _noiseMap.ContainsKey(Status) ? _noiseMap[Status] : DefaultNoiseLevel;
@@ -26,15 +28,24 @@ namespace OOP20_HotlineCesena_csharp.model.entities.actors.player
         }
 
         /// <remark>
-        ///     Only partially implemented. Collision detection is not needed here.
+        ///     Partial collision detection.
         /// </remark>
         protected override void ExecuteMovement(IPoint2D direction)
         {
             if (IsAlive())
             {
-                Position = Position.Add(direction.Multiply(Speed));
-                Status = ActorStatus.Moving;
+                IPoint2D newPosition = Position.Add(direction.Multiply(Speed));
+                if (!HasCollided(newPosition, _obstaclesOnMap))
+                {
+                    Position = newPosition;
+                    Status = ActorStatus.Moving;
+                }
             }
+        }
+
+        bool HasCollided(IPoint2D newPos, IEnumerable<IEntity> entities)
+        {
+            return entities.Any(e => IsCollidingWith(newPos, e));
         }
     }
 }
