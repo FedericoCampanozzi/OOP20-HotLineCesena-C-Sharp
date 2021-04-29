@@ -64,7 +64,7 @@ namespace Campanozzi.Controller.Generator
             for (int i = 0; i < walls.Count; i++)
             {
                 walls[i] = MathUtils.Subtract(start, walls[i]);
-                this._map.Add(walls[i], SymbolsType.WALL);
+                this._map[walls[i]] = SymbolsType.WALL;
             }
 
             for (int i = 0; i < this.nDoor;)
@@ -81,7 +81,7 @@ namespace Campanozzi.Controller.Generator
                                 walls.Contains(new KeyValuePair<int, int>(door.Key - 1, door.Value - 1)))
                         )
                 {
-                    this._map.Add(door, SymbolsType.DOOR);
+                    this._map[door] = SymbolsType.DOOR;
                     i++;
                 }
             }
@@ -92,7 +92,7 @@ namespace Campanozzi.Controller.Generator
                 {
                     if (MathUtils.Distance(new KeyValuePair<int, int>(i, j), _center) < (((double)this.width - 2) / 2.0d))
                     {
-                        this._map.Add(new KeyValuePair<int, int>(i, j), SymbolsType.WALKABLE);
+                        this._map[new KeyValuePair<int, int>(i, j)] = SymbolsType.WALKABLE;
                     }
                 }
             }

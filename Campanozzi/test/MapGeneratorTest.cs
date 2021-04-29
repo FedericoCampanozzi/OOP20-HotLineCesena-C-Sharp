@@ -8,35 +8,125 @@ namespace CampanozziTest
 {
 	public class MapGeneratorTest
 	{
+		private const int N_IMAGE = 10;
+
 		[Test]
-		public void VisualTest()
+		public void VisualTestOctagonalWorldGeneratorBuilder()
 		{
 			try
 			{
-				IWorldGeneratorBuilder<RectangularRoom> sgwb = new RectangularWorldGeneratorBuilder()
-					.AddSomeBaseRoom(new BaseRoomsGeneratorFactory().GenerateRectungolarRoomList(5, 13, 5, 13, 1, 4,15, 25))
-					.GenerateRooms(1, 2)
-					.GeneratePlayer()
-					.GenerateKeyObject()
-					.GenerateEnemy(1, 3)
-					.GenerateItem(1, 3)
-					.GenerateWeapons(1, 3)
-					.GenerateObstacoles(1, 3)
-					.Finishes()
-					.Build();
-				
-				for(int i = sgwb.MinX; i < sgwb.MaxX; i++)
-                {
-					for (int j = sgwb.MinY; j < sgwb.MaxY; j++)
+				for (int n = 0; n < N_IMAGE; n++)
+				{
+					JSONDataAccessLayer.generateNewSeed();
+					Console.WriteLine(JSONDataAccessLayer.SEED);
+
+					IWorldGeneratorBuilder<OctagonalRoom> sgwb = new OctagonalWorldGeneratorBuilder()
+						.AddSomeBaseRoom(new BaseRoomsGeneratorFactory().GenerateOctagonalRoomList(3, 5, 1, 4, 15, 25))
+						.GenerateRooms(1, 2)
+						.GeneratePlayer()
+						.GenerateKeyObject()
+						.GenerateEnemy(1, 3)
+						.GenerateItem(1, 3)
+						.GenerateWeapons(1, 3)
+						.GenerateObstacoles(1, 3)
+						.Finishes()
+						.Build();
+
+					string d = "";
+					for (int i = sgwb.MinX; i < sgwb.MaxX; i++)
 					{
-						Console.Write((char)sgwb.Map[new KeyValuePair<int, int>(i, j)]);
+						for (int j = sgwb.MinY; j < sgwb.MaxY; j++)
+						{
+							d += (char)sgwb.Map[new KeyValuePair<int, int>(i, j)] + "  ";
+						}
+						Console.WriteLine(d);
+						d = "";
 					}
-					Console.WriteLine();
 				}
 			}
 			catch (Exception e)
 			{
-				Console.WriteLine("FAIL TO GENERATE :\n" + e.Message);
+				Console.WriteLine("FAIL TO GENERATE :\n" + e.Message + "\n" + e.StackTrace);
+			}
+		}
+
+		[Test]
+		public void VisualTestQuadraticWorldGeneratorBuilder()
+		{
+			try
+			{
+				for (int n = 0; n < N_IMAGE; n++)
+				{
+					JSONDataAccessLayer.generateNewSeed();
+					Console.WriteLine(JSONDataAccessLayer.SEED);
+
+					IWorldGeneratorBuilder<QuadraticRoom> sgwb = new QuadraticWorldGeneratorBuilder()
+						.AddSomeBaseRoom(new BaseRoomsGeneratorFactory().GenerateQuadraticRoomList(5, 13, 1, 4, 15, 25))
+						.GenerateRooms(1, 2)
+						.GeneratePlayer()
+						.GenerateKeyObject()
+						.GenerateEnemy(1, 3)
+						.GenerateItem(1, 3)
+						.GenerateWeapons(1, 3)
+						.GenerateObstacoles(1, 3)
+						.Finishes()
+						.Build();
+
+					string d = "";
+					for (int i = sgwb.MinX; i < sgwb.MaxX; i++)
+					{
+						for (int j = sgwb.MinY; j < sgwb.MaxY; j++)
+						{
+							d += (char)sgwb.Map[new KeyValuePair<int, int>(i, j)] + "  ";
+						}
+						Console.WriteLine(d);
+						d = "";
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine("FAIL TO GENERATE :\n" + e.Message + "\n" + e.StackTrace);
+			}
+		}
+
+		[Test]
+		public void VisualTestRectangularWorldGeneratorBuilder()
+		{
+			try
+			{
+				for (int n = 0; n < N_IMAGE; n++)
+				{
+					JSONDataAccessLayer.generateNewSeed();
+					Console.WriteLine(JSONDataAccessLayer.SEED);
+
+					IWorldGeneratorBuilder<RectangularRoom> sgwb = new RectangularWorldGeneratorBuilder()
+						.AddSomeBaseRoom(new BaseRoomsGeneratorFactory().GenerateRectungolarRoomList(5, 13, 5, 13, 1, 4, 15, 25))
+						.GenerateRooms(1, 2)
+						.GeneratePlayer()
+						.GenerateKeyObject()
+						.GenerateEnemy(1, 3)
+						.GenerateItem(1, 3)
+						.GenerateWeapons(1, 3)
+						.GenerateObstacoles(1, 3)
+						.Finishes()
+						.Build();
+
+					string d = "";
+					for (int i = sgwb.MinX; i < sgwb.MaxX; i++)
+					{
+						for (int j = sgwb.MinY; j < sgwb.MaxY; j++)
+						{
+							d += (char)sgwb.Map[new KeyValuePair<int, int>(i, j)] + "  ";
+						}
+						Console.WriteLine(d);
+						d = "";
+					}
+				}
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine("FAIL TO GENERATE :\n" + e.Message + "\n" + e.StackTrace);
 			}
 		}
 

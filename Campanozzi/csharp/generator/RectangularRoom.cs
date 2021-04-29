@@ -50,11 +50,11 @@ namespace Campanozzi.Controller.Generator
 
 					if (y == -height2 || x == -width2 || y == height2 || x == width2)
 					{
-						_map.Add(new KeyValuePair<int, int>(y, x), SymbolsType.WALL);
+						_map[new KeyValuePair<int, int>(y, x)] =  SymbolsType.WALL;
 					}
 					else
 					{
-						_map.Add(new KeyValuePair<int, int>(y, x), SymbolsType.WALKABLE);
+						_map[new KeyValuePair<int, int>(y, x)] = SymbolsType.WALKABLE;
 					}
 				}
 			}
@@ -72,7 +72,7 @@ namespace Campanozzi.Controller.Generator
 						&& !cPos.Equals(new KeyValuePair<int, int>(height2, -width2))) && !connections.Contains(cPos)
 						&& this._map[cPos].Equals(SymbolsType.WALL))
 				{
-					this._map.Add(cPos, SymbolsType.DOOR);
+					this._map[cPos] = SymbolsType.DOOR;
 					connections.Add(cPos);
 				}
 			}

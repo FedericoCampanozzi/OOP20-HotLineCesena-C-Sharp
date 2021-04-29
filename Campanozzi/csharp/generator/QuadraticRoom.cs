@@ -43,11 +43,11 @@ namespace Campanozzi.Controller.Generator
 
 					if (y == -width || x == -width || y == width || x == width)
 					{
-						this._map.Add(new KeyValuePair<int, int>(y, x), SymbolsType.WALL);
+						this._map[new KeyValuePair<int, int>(y, x)] = SymbolsType.WALL;
 					}
 					else
 					{
-						this._map.Add(new KeyValuePair<int, int>(y, x), SymbolsType.WALKABLE);
+						this._map[new KeyValuePair<int, int>(y, x)] = SymbolsType.WALKABLE;
 					}
 				}
 			}
