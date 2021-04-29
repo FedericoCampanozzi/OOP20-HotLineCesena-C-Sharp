@@ -34,14 +34,14 @@ namespace Micheli.enemy.ai.strategy
             {
                 for (int x = 0; x <= width - 1; x++)
                 {
-                    int heuristic = Math.Abs(x - (int)end._x) + Math.Abs(y - (int)end._y);
+                    int heuristic = Math.Abs(x - (int)end.X) + Math.Abs(y - (int)end.Y);
                     Node node = new Node(0, heuristic, x, y);
                     nodeMap[x, y] = node;
                 }
             }
 
-            startNode = nodeMap[(int)start._x, (int)start._y];
-            endNode = nodeMap[(int)end._x, (int)end._y];
+            startNode = nodeMap[(int)start.X, (int)start.Y];
+            endNode = nodeMap[(int)end.X, (int)end.Y];
 
             if (startNode.Equals(endNode))
             {
@@ -61,9 +61,9 @@ namespace Micheli.enemy.ai.strategy
                     return GetPath(current);
                 }
 
-                for (int y = (int)current.GetPosition._y; y < (int)current.GetPosition._y + 2; y++)
+                for (int y = (int)current.GetPosition.Y; y < (int)current.GetPosition.Y + 2; y++)
                 {
-                    for (int x = (int)current.GetPosition._x; x < (int)current.GetPosition._x + 2; x++)
+                    for (int x = (int)current.GetPosition.X; x < (int)current.GetPosition.X + 2; x++)
                     {
                         if (map.ToList().Exists(e => e.Equals(new Point2D(x, y))))
                         {

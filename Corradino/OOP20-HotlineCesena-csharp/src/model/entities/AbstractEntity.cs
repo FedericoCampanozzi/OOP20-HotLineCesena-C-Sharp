@@ -10,7 +10,9 @@ namespace OOP20_HotlineCesena_csharp.model.entities
         }
 
         public IPoint2D Position { get; protected set; }
+        
         public double Width { get; }
+        
         public double Height { get; }
     }
 }

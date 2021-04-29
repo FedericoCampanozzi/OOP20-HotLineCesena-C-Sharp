@@ -13,7 +13,7 @@
         /// <returns>a new point</returns>
         public static Point2D RoundedSumPoint2D(Point2D arg1,  Point2D arg2)
         {
-            return new Point2D((int)arg1._x + (int)arg2._x, (int)arg1._y + (int)arg2._y);
+            return new Point2D((int)arg1.X + (int)arg2.X, (int)arg1.Y + (int)arg2.Y);
         }
     }
 }

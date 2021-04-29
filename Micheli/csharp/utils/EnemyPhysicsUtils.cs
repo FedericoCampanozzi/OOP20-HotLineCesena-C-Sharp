@@ -33,18 +33,18 @@ namespace Micheli.utils
         /// <returns>if the enemy has a clear line of sight</returns>
         public static bool IsWallInBetween(Point2D current, Point2D target, HashSet<Point2D> walls)
         {
-            int x = (int)current._x;
-            int y = (int)current._y;
+            int x = (int)current.X;
+            int y = (int)current.Y;
 
-            int distanceX = x - (int)target._x;
-            int distanceY = y - (int)target._y;
+            int distanceX = x - (int)target.X;
+            int distanceY = y - (int)target.Y;
 
             if (distanceX == 0 && distanceY == 0)
             {
                 return false;
             }
 
-            while ((distanceX > 0 ? x > target._x : x < target._x) || (distanceY > 0 ? y > target._y : y < target._y))
+            while ((distanceX > 0 ? x > target.X : x < target.X) || (distanceY > 0 ? y > target.Y : y < target.Y))
             {
                 if (walls.ToList().Exists(e => e.Equals(new Point2D(x, y))))
                 {
