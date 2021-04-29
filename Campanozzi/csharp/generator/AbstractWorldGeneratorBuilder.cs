@@ -8,12 +8,12 @@ using Campanozzi.Utilities;
 
 namespace Campanozzi.Controller.Generator
 {
-    abstract class AbstractWorldGeneratorBuilder<X> : IWorldGeneratorBuilder<X> where X : IRoom
+    public abstract class AbstractWorldGeneratorBuilder<X> : IWorldGeneratorBuilder<X> where X : IRoom
     {
         protected const int ACCETABLE_MAP = 5;
         protected const int MAX_POSSIBILITY = 10000;
         protected const int MAP_PADDING = 10;
-        protected Random _rnd = new Random(JSONDataAccessLayer.SEED);
+        protected Random _rnd = new Random(JSONDataAccessLayer._seed);
         protected int _xMin, _xMax, _yMin, _yMax;
         protected int _pRoomIndex;
         protected int? _objRoomIndex = null;
@@ -25,7 +25,7 @@ namespace Campanozzi.Controller.Generator
 
         public AbstractWorldGeneratorBuilder()
         {
-            _rnd = new Random(JSONDataAccessLayer.SEED);
+            _rnd = new Random(JSONDataAccessLayer._seed);
         }
 
         public IWorldGeneratorBuilder<X> AddSingleBaseRoom(X r)
@@ -40,9 +40,14 @@ namespace Campanozzi.Controller.Generator
             return this;
         }
 
+        /// <summary>
+        /// Template method
+        /// </summary>
+        /// <param name="room">the room</param>
+        /// <returns>the direction to put new room</returns>
         public abstract KeyValuePair<int, int> GetDirections(X room);
 
-        public IWorldGeneratorBuilder<X> GenerateRooms(int nRoomsMin, int nRoomsMax)
+        public virtual IWorldGeneratorBuilder<X> GenerateRooms(int nRoomsMin, int nRoomsMax)
         {
             this.HaveInitBaseRoom();
             int nRooms = _rnd.Next(nRoomsMin, nRoomsMax);
@@ -69,7 +74,8 @@ namespace Campanozzi.Controller.Generator
             }
             return this;
         }
-        public IWorldGeneratorBuilder<X> GenerateKeyObject()
+        
+        public virtual IWorldGeneratorBuilder<X> GenerateKeyObject()
         {
             HaveInitMapAndBaseRoom();
             if (this._rooms.Count <= ACCETABLE_MAP)
@@ -87,7 +93,7 @@ namespace Campanozzi.Controller.Generator
             return this;
         }
 
-        public IWorldGeneratorBuilder<X> GeneratePlayer()
+        public virtual IWorldGeneratorBuilder<X> GeneratePlayer()
         {
             HaveInitMapAndBaseRoom();
             this._pRoomIndex = _rnd.Next(this._rooms.Count);
@@ -97,31 +103,31 @@ namespace Campanozzi.Controller.Generator
             return this;
         }
 
-        public IWorldGeneratorBuilder<X> GenerateEnemy(int minInRoom, int maxInRoom)
+        public virtual IWorldGeneratorBuilder<X> GenerateEnemy(int minInRoom, int maxInRoom)
         {
             HaveInitMapAndBaseRoom();
             return GenerateTotalRandomnessMany(SymbolsType.ENEMY, minInRoom, maxInRoom);
         }
 
-        public IWorldGeneratorBuilder<X> GenerateWeapons(int minInRoom, int maxInRoom)
+        public virtual IWorldGeneratorBuilder<X> GenerateWeapons(int minInRoom, int maxInRoom)
         {
             HaveInitMapAndBaseRoom();
             return GenerateTotalRandomnessMany(SymbolsType.WEAPONS, minInRoom, maxInRoom);
         }
 
-        public IWorldGeneratorBuilder<X> GenerateItem(int minInRoom, int maxInRoom)
+        public virtual IWorldGeneratorBuilder<X> GenerateItem(int minInRoom, int maxInRoom)
         {
             HaveInitMapAndBaseRoom();
             return GenerateTotalRandomnessMany(SymbolsType.ITEM, minInRoom, maxInRoom);
         }
 
-        public IWorldGeneratorBuilder<X> GenerateObstacoles(int minInRoom, int maxInRoom)
+        public virtual IWorldGeneratorBuilder<X> GenerateObstacoles(int minInRoom, int maxInRoom)
         {
             HaveInitMapAndBaseRoom();
             return GenerateTotalRandomnessMany(SymbolsType.OBSTACOLES, minInRoom, maxInRoom);
         }
 
-        public IWorldGeneratorBuilder<X> Build()
+        public virtual IWorldGeneratorBuilder<X> Build()
         {
             HaveInitMapAndBaseRoom();
             return this;
@@ -151,6 +157,7 @@ namespace Campanozzi.Controller.Generator
             }
             return this;
         }
+       
         public virtual IWorldGeneratorBuilder<X> Finishes()
         {
             HaveInitMapAndBaseRoom();
@@ -160,7 +167,7 @@ namespace Campanozzi.Controller.Generator
             this._yMin = _yMin - MAP_PADDING;
 
             //fill null positions
-            this.applyCorrection((i, j) => {
+            this.ApplyCorrection((i, j) => {
                 if (!this._map.ContainsKey(new KeyValuePair<int, int>(i, j)))
                 {
                     this._map[new KeyValuePair<int, int>(i, j)] = SymbolsType.VOID;
@@ -168,46 +175,46 @@ namespace Campanozzi.Controller.Generator
             });
 
             //check door that have near a void space
-            this.applyCorrection((i, j) => {
-                if (this.get(i, j, SymbolsType.DOOR) && checkAdjacent4(i, j, SymbolsType.VOID))
+            this.ApplyCorrection((i, j) => {
+                if (this.Get(i, j, SymbolsType.DOOR) && CheckAdjacent4(i, j, SymbolsType.VOID))
                 {
                     this._map[new KeyValuePair<int, int>(i, j)] = SymbolsType.WALL;
                 }
             });
 
             //check walkable corridor
-            this.applyCorrection((i, j) => {
-                if ((this.get(i, j, SymbolsType.ENEMY)
-                        || this.get(i, j, SymbolsType.OBSTACOLES)) && checkAdjacent8(i, j, SymbolsType.WALL))
+            this.ApplyCorrection((i, j) => {
+                if ((this.Get(i, j, SymbolsType.ENEMY)
+                        || this.Get(i, j, SymbolsType.OBSTACOLES)) && CheckAdjacent8(i, j, SymbolsType.WALL))
                 {
                     this._map[new KeyValuePair<int, int>(i, j)] = SymbolsType.WALKABLE;
                 }
             });
 
             //open corridor
-            this.applyCorrection((i, j) => {
+            this.ApplyCorrection((i, j) => {
                 // j+
-                this.checkSemiAxis(i, j, 0, 1, -1, 0);
+                this.CheckSemiAxis(i, j, 0, 1, -1, 0);
                 // j-
-                this.checkSemiAxis(i, j, 0, -1, 1, 0);
+                this.CheckSemiAxis(i, j, 0, -1, 1, 0);
                 // i+
-                this.checkSemiAxis(i, j, 1, 0, 0, -1);
+                this.CheckSemiAxis(i, j, 1, 0, 0, -1);
                 // i-
-                this.checkSemiAxis(i, j, -1, 0, 0, 1);
+                this.CheckSemiAxis(i, j, -1, 0, 0, 1);
             });
 
 
             //Delete remaining doors
-            this.applyCorrection((i, j) => {
-                if (get(i, j, SymbolsType.DOOR))
+            this.ApplyCorrection((i, j) => {
+                if (Get(i, j, SymbolsType.DOOR))
                 {
                     this._map[new KeyValuePair<int, int>(i, j)] = SymbolsType.WALL;
                 }
             });
 
             //check walkable that have near a void space
-            this.applyCorrection((i, j) => {
-                if (this.get(i, j, SymbolsType.WALKABLE) && checkAdjacent8(i, j, SymbolsType.VOID))
+            this.ApplyCorrection((i, j) => {
+                if (this.Get(i, j, SymbolsType.WALKABLE) && CheckAdjacent8(i, j, SymbolsType.VOID))
                 {
                     this._map[new KeyValuePair<int, int>(i, j)] = SymbolsType.WALL;
                 }
@@ -216,9 +223,9 @@ namespace Campanozzi.Controller.Generator
             return this;
         }
 
-        protected void checkSemiAxis(int i, int j, int dI, int dJ, int dInvI, int dInvJ)
+        protected void CheckSemiAxis(int i, int j, int dI, int dJ, int dInvI, int dInvJ)
         {
-            if (get(i, j, SymbolsType.DOOR) && get(i + dI, j + dJ, SymbolsType.DOOR) && get(i + 2 * dI, j + 2 * dJ, SymbolsType.WALKABLE))
+            if (Get(i, j, SymbolsType.DOOR) && Get(i + dI, j + dJ, SymbolsType.DOOR) && Get(i + 2 * dI, j + 2 * dJ, SymbolsType.WALKABLE))
             {
                 if (dI == 1 || dI == -1)
                 {
@@ -239,7 +246,7 @@ namespace Campanozzi.Controller.Generator
             }
         }
 
-        protected void applyCorrection(Action<int, int> correction)
+        protected void ApplyCorrection(Action<int, int> correction)
         {
             for (int i = _xMin; i <= _xMax; i++)
             {
@@ -250,18 +257,18 @@ namespace Campanozzi.Controller.Generator
             }
         }
 
-        protected bool checkAdjacent4(int i, int j, SymbolsType type)
+        protected bool CheckAdjacent4(int i, int j, SymbolsType type)
         {
-            return get(i + 1, j, type) || get(i - 1, j, type) || get(i, j + 1, type) || get(i, j - 1, type);
+            return Get(i + 1, j, type) || Get(i - 1, j, type) || Get(i, j + 1, type) || Get(i, j - 1, type);
         }
 
-        protected bool checkAdjacent8(int i, int j, SymbolsType type)
+        protected bool CheckAdjacent8(int i, int j, SymbolsType type)
         {
-            return checkAdjacent4(i, j, type) || get(i + 1, j + 1, type) || get(i - 1, j - 1, type)
-                    || get(i - 1, j + 1, type) || get(i + 1, j - 1, type);
+            return CheckAdjacent4(i, j, type) || Get(i + 1, j + 1, type) || Get(i - 1, j - 1, type)
+                    || Get(i - 1, j + 1, type) || Get(i + 1, j - 1, type);
         }
 
-        protected bool get(int i, int j, SymbolsType type)
+        protected bool Get(int i, int j, SymbolsType type)
         {
             return this._map[new KeyValuePair<int, int>(i, j)].Equals(type);
         }
@@ -321,6 +328,7 @@ namespace Campanozzi.Controller.Generator
 
             this._rooms.Add(room);
         }
+        
         protected KeyValuePair<int, int> GetConnectionsLinking()
         {
             IList<KeyValuePair<int, int>> allDoors = new List<KeyValuePair<int, int>>();
@@ -354,12 +362,6 @@ namespace Campanozzi.Controller.Generator
             {
                 throw new ArgumentException();
             }
-        }
-
-        public IWorldGeneratorBuilder<X> build()
-        {
-            HaveInitMapAndBaseRoom();
-            return this;
         }
 
         public IDictionary<KeyValuePair<int, int>, SymbolsType> Map

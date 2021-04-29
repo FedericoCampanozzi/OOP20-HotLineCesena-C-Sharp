@@ -13,27 +13,11 @@ namespace Campanozzi.Model.DataAccessLayer
 
     public class JSONDataAccessLayer : IDataAccessLayer
     {
-        public static int SEED = 0;
-        private static IDataAccessLayer singleton = null;
+        public static int _seed = 0;
 
-        public static IDataAccessLayer getInstance()
-        {
-            if (singleton == null)
-            {
-                singleton = new JSONDataAccessLayer();
-            }
-            return singleton;
-        }
-        
         public static void generateNewSeed()
         {
-            SEED = new Random().Next();
-        }
-        
-        public static void newInstance()
-        {
-            SEED = new Random().Next();
-            singleton = new JSONDataAccessLayer();
+            _seed = new Random().Next();
         }
     }
 }

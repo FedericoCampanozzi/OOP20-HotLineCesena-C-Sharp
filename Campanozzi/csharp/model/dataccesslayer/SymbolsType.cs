@@ -2,7 +2,7 @@ namespace Campanozzi.Model.DataAccessLayer
 {
     public enum SymbolsType
     {
-        VOID = '<',
+        VOID = ' ',
         DOOR = 'D',
         WALKABLE = ' ',
         ENEMY = 'E',

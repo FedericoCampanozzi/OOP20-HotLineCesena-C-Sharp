@@ -43,7 +43,7 @@ namespace Campanozzi.Controller.Generator
                 this._center = value;
             }
         }
-
+        
         public abstract void Generate();
 
         public abstract IRoom DeepCopy();

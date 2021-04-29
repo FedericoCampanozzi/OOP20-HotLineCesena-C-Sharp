@@ -6,6 +6,9 @@ using Campanozzi.Model.DataAccessLayer;
 
 namespace CampanozziTest
 {
+	/// <summary>
+	/// Test Generator Namespace
+	/// </summary>
 	public class MapGeneratorTest
 	{
 		private const int N_IMAGE = 10;
@@ -18,7 +21,7 @@ namespace CampanozziTest
 				for (int n = 0; n < N_IMAGE; n++)
 				{
 					JSONDataAccessLayer.generateNewSeed();
-					Console.WriteLine(JSONDataAccessLayer.SEED);
+					Console.WriteLine(JSONDataAccessLayer._seed);
 
 					IWorldGeneratorBuilder<OctagonalRoom> sgwb = new OctagonalWorldGeneratorBuilder()
 						.AddSomeBaseRoom(new BaseRoomsGeneratorFactory().GenerateOctagonalRoomList(3, 5, 1, 4, 15, 25))
@@ -58,7 +61,7 @@ namespace CampanozziTest
 				for (int n = 0; n < N_IMAGE; n++)
 				{
 					JSONDataAccessLayer.generateNewSeed();
-					Console.WriteLine(JSONDataAccessLayer.SEED);
+					Console.WriteLine(JSONDataAccessLayer._seed);
 
 					IWorldGeneratorBuilder<QuadraticRoom> sgwb = new QuadraticWorldGeneratorBuilder()
 						.AddSomeBaseRoom(new BaseRoomsGeneratorFactory().GenerateQuadraticRoomList(5, 13, 1, 4, 15, 25))
@@ -98,7 +101,7 @@ namespace CampanozziTest
 				for (int n = 0; n < N_IMAGE; n++)
 				{
 					JSONDataAccessLayer.generateNewSeed();
-					Console.WriteLine(JSONDataAccessLayer.SEED);
+					Console.WriteLine(JSONDataAccessLayer._seed);
 
 					IWorldGeneratorBuilder<RectangularRoom> sgwb = new RectangularWorldGeneratorBuilder()
 						.AddSomeBaseRoom(new BaseRoomsGeneratorFactory().GenerateRectungolarRoomList(5, 13, 5, 13, 1, 4, 15, 25))

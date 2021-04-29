@@ -10,15 +10,15 @@ namespace Campanozzi.Controller.Generator
 {
     public class OctagonalRoom : AbstractRoom, IRoom
     {
-        private int width;
-        private int edge;
-        private int nDoor;
+        private int _width;
+        private int _edge;
+        private int _nDoor;
 
         private OctagonalRoom(IDictionary<KeyValuePair<int, int>, SymbolsType> map, KeyValuePair<int, int> center, int width) : base()
         {
             this._center = center;
             this._map = map;
-            this.width = width;
+            this._width = width;
         }
 
         public OctagonalRoom(int edge, int nDoor) : base()
@@ -27,17 +27,17 @@ namespace Campanozzi.Controller.Generator
             {
                 edge -= 1;
             }
-            this.width = (3 * (edge - 1)) + 1;
-            this.edge = edge;
-            this.nDoor = nDoor;
+            this._width = (3 * (edge - 1)) + 1;
+            this._edge = edge;
+            this._nDoor = nDoor;
             Generate();
         }
 
         public override void Generate()
         {
-            int edge2 = (edge - 1) / 2;
-            int width2 = (width - 1) / 2;
-            Random rnd = new Random(JSONDataAccessLayer.SEED);
+            int edge2 = (_edge - 1) / 2;
+            int width2 = (_width - 1) / 2;
+            Random rnd = new Random(JSONDataAccessLayer._seed);
             IList<KeyValuePair<int, int>> walls = new List<KeyValuePair<int, int>>();
             IList<KeyValuePair<int, int>> dirs = new List<KeyValuePair<int, int>>();
             KeyValuePair<int, int> start = new KeyValuePair<int, int>(0, 0);
@@ -52,14 +52,14 @@ namespace Campanozzi.Controller.Generator
 
             foreach (KeyValuePair<int, int> dir in dirs)
             {
-                for (int i = 1; i < edge; i++)
+                for (int i = 1; i < _edge; i++)
                 {
                     start = MathUtils.Sum(start, dir);
                     walls.Add(start);
                 }
             }
 
-            start = new KeyValuePair<int, int>(-edge - edge2 + 1, edge2);
+            start = new KeyValuePair<int, int>(-_edge - edge2 + 1, edge2);
 
             for (int i = 0; i < walls.Count; i++)
             {
@@ -67,7 +67,7 @@ namespace Campanozzi.Controller.Generator
                 this._map[walls[i]] = SymbolsType.WALL;
             }
 
-            for (int i = 0; i < this.nDoor;)
+            for (int i = 0; i < this._nDoor;)
             {
                 KeyValuePair<int, int> door = walls[rnd.Next(walls.Count)];
 
@@ -90,7 +90,7 @@ namespace Campanozzi.Controller.Generator
             {
                 for (int j = -width2 + 1; j <= width2 - 1; j++)
                 {
-                    if (MathUtils.Distance(new KeyValuePair<int, int>(i, j), _center) < (((double)this.width - 2) / 2.0d))
+                    if (MathUtils.Distance(new KeyValuePair<int, int>(i, j), _center) < (((double)this._width - 2) / 2.0d))
                     {
                         this._map[new KeyValuePair<int, int>(i, j)] = SymbolsType.WALKABLE;
                     }
@@ -100,12 +100,15 @@ namespace Campanozzi.Controller.Generator
 
         public override IRoom DeepCopy()
         {
-            return new OctagonalRoom(this._map, this._center, this.edge);
+            return new OctagonalRoom(this._map, this._center, this._edge);
         }
 
-        public int GetWidth()
+        public int Width
         {
-            return this.width;
+            get
+            {
+                return this._width;
+            }
         }
     }
 }

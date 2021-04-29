@@ -9,15 +9,15 @@ namespace Campanozzi.Controller.Generator
 {
 	public class RectangularRoom : AbstractRoom, IRoom
 	{
-		private int w;
-		private int h;
-		private int d;
+		private int _w;
+		private int _h;
+		private int _d;
 
 		private RectangularRoom(IDictionary<KeyValuePair<int, int>, SymbolsType> map, KeyValuePair<int, int> center, int width, int height) : base()
 		{
 			this._map = map;
-			this.w = width;
-			this.h = height;
+			this._w = width;
+			this._h = height;
 		}
 
 		public RectangularRoom(int width, int height, int nDoor) : base()
@@ -31,17 +31,17 @@ namespace Campanozzi.Controller.Generator
 				height -= 1;
 			}
 
-			this.h = height;
-			this.w = width;
-			this.d = nDoor;
+			this._h = height;
+			this._w = width;
+			this._d = nDoor;
 			Generate();
 		}
 
 		public override void Generate()
 		{
-			int width2 = (this.w - 1) / 2;
-			int height2 = (this.h - 1) / 2;
-			Random rnd = new Random(JSONDataAccessLayer.SEED);
+			int width2 = (this._w - 1) / 2;
+			int height2 = (this._h - 1) / 2;
+			Random rnd = new Random(JSONDataAccessLayer._seed);
 
 			for (int y = -height2; y <= height2; y++)
 			{
@@ -60,10 +60,10 @@ namespace Campanozzi.Controller.Generator
 			}
 
 			ISet<KeyValuePair<int, int>> connections = new HashSet<KeyValuePair<int, int>>();
-			while (connections.Count < this.d)
+			while (connections.Count < this._d)
 			{
-				int x = rnd.Next(this.w) - width2;
-				int y = rnd.Next(this.h) - height2;
+				int x = rnd.Next(this._w) - width2;
+				int y = rnd.Next(this._h) - height2;
 				KeyValuePair<int, int> cPos = new KeyValuePair<int, int>(y, x);
 
 				if ((!cPos.Equals(new KeyValuePair<int, int>(-height2, -width2))
@@ -80,17 +80,23 @@ namespace Campanozzi.Controller.Generator
 
 		public override IRoom DeepCopy()
 		{
-			return new RectangularRoom(this._map, this._center, this.w, this.h);
+			return new RectangularRoom(this._map, this._center, this._w, this._h);
 		}
 
-		public int GetWidth()
+		public int Width
 		{
-			return this.w;
+            get
+            {
+				return this._w;
+            }
 		}
 
-		public int GetHeight()
+		public int Height
 		{
-			return this.h;
+            get
+            {
+				return this._h;
+            }
 		}
 	}
 }

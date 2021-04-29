@@ -35,7 +35,7 @@ namespace Campanozzi.Controller.Generator
 		{
 
 			int width = (this._w - 1) / 2;
-			Random rnd = new Random(JSONDataAccessLayer.SEED);
+			Random rnd = new Random(JSONDataAccessLayer._seed);
 			for (int y = -width; y <= width; y++)
 			{
 				for (int x = -width; x <= width; x++)
@@ -75,9 +75,12 @@ namespace Campanozzi.Controller.Generator
 			return new QuadraticRoom(this._map, this._center, this._w);
 		}
 
-		public int GetWidth()
+		public int Width
 		{
-			return this._w;
+            get
+            {
+				return this._w;
+            }
 		}
 	}
 }

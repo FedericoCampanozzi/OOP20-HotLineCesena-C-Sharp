@@ -7,7 +7,7 @@ using Campanozzi.Model.DataAccessLayer;
 
 namespace Campanozzi.Controller.Generator
 {
-	class OctagonalWorldGeneratorBuilder : AbstractWorldGeneratorBuilder<OctagonalRoom>, IWorldGeneratorBuilder<OctagonalRoom>
+	public class OctagonalWorldGeneratorBuilder : AbstractWorldGeneratorBuilder<OctagonalRoom>, IWorldGeneratorBuilder<OctagonalRoom>
 	{
 		public OctagonalWorldGeneratorBuilder() : base()
 		{
@@ -15,7 +15,7 @@ namespace Campanozzi.Controller.Generator
 
 		public override KeyValuePair<int, int> GetDirections(OctagonalRoom room)
 		{
-			int w = (room.GetWidth() - 1) / 2;
+			int w = (room.Width - 1) / 2;
 			return new KeyValuePair<int, int>((_rnd.Next(3) - 1) * (w + 2), (_rnd.Next(3) - 1) * (w + 2));
 		}
 
@@ -45,7 +45,7 @@ namespace Campanozzi.Controller.Generator
 				{
 
 					if (this._map[new KeyValuePair<int, int>(i, j)].Equals(SymbolsType.OBSTACOLES)
-							&& this.checkAdjacent8(i, j, SymbolsType.WALL))
+							&& this.CheckAdjacent8(i, j, SymbolsType.WALL))
 					{
 						this._map.Add(new KeyValuePair<int, int>(i, j), SymbolsType.WALKABLE);
 					}
@@ -57,7 +57,7 @@ namespace Campanozzi.Controller.Generator
 				for (int j = _yMin; j <= _yMax; j++)
 				{
 					if (this._map[new KeyValuePair<int, int>(i, j)].Equals(SymbolsType.DOOR)
-							&& !this.checkAdjacent8(i, j, SymbolsType.VOID))
+							&& !this.CheckAdjacent8(i, j, SymbolsType.VOID))
 					{
 						this._map.Add(new KeyValuePair<int, int>(i, j), SymbolsType.WALL);
 					}
