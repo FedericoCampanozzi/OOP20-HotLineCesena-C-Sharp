@@ -211,7 +211,7 @@ namespace Campanozzi.Controller.Generator
                     this._map[new KeyValuePair<int, int>(i, j)] = SymbolsType.WALL;
                 }
             });
-
+            /*
             //check walkable that have near a void space
             this.ApplyCorrection((i, j) => {
                 if (this.Get(i, j, SymbolsType.WALKABLE) && CheckAdjacent8(i, j, SymbolsType.VOID))
@@ -219,7 +219,7 @@ namespace Campanozzi.Controller.Generator
                     this._map[new KeyValuePair<int, int>(i, j)] = SymbolsType.WALL;
                 }
             });
-
+            */
             return this;
         }
 
@@ -277,8 +277,7 @@ namespace Campanozzi.Controller.Generator
         {
             bool can = true;
             bool isNearDoor = false;
-            KeyValuePair<int, int> dd = new KeyValuePair<int, int>(doorLink.Key + (int)Math.Sign(dir.Key),
-                    doorLink.Value + (int)Math.Sign(dir.Value));
+            KeyValuePair<int, int> dd = new KeyValuePair<int, int>(doorLink.Key + (int)Math.Sign(dir.Key), doorLink.Value + (int)Math.Sign(dir.Value));
 
             foreach (KeyValuePair<int, int> positions in room.Map.Keys)
             {

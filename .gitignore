@@ -351,3 +351,6 @@ MigrationBackup/
 
 # JetBrains Rider folder
 .idea/
+
+# Custom
+/Campanozzi/Test/GeneraterMap

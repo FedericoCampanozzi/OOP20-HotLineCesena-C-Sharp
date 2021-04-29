@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
 using NUnit.Framework;
+using System.Drawing;
+using System.IO;
 using Campanozzi.Controller.Generator;
 using Campanozzi.Model.DataAccessLayer;
 
@@ -11,19 +13,77 @@ namespace CampanozziTest
 	/// </summary>
 	public class MapGeneratorTest
 	{
-		private const int N_IMAGE = 10;
+		private const int N_IMAGE = 5;
+		private const int PIXEL_SIZE = 15;
+		private const string PROJECT_NAME = "Campanozzi";
+		private string _projectPath = "";
+		private bool _setup = false;
+
+		private void SetUp()
+        {
+            if (_setup)
+            {
+				return;
+            }
+
+			_setup = true;
+
+			string[] pathPart = Directory.GetCurrentDirectory().Split(Path.DirectorySeparatorChar);
+			for (int i = 0; i < pathPart.Length && pathPart[i] == PROJECT_NAME; i++)
+			{
+				_projectPath += pathPart[i] + Path.DirectorySeparatorChar;
+			}
+
+			DirectoryInfo dir = new DirectoryInfo(_projectPath + Path.DirectorySeparatorChar + "test" + Path.DirectorySeparatorChar + "GeneraterMap");
+
+			if (!dir.Exists)
+			{
+				dir.Create();
+			}
+			else
+			{
+				foreach (FileInfo f in dir.GetFiles())
+				{
+					File.Delete(f.FullName);
+				}
+			}
+		}
+
+		private void SaveMapToBitmap(IDictionary<KeyValuePair<int,int>, SymbolsType> map, int xMin, int xMax, int yMin, int yMax, string path)
+        {
+			int width = PIXEL_SIZE * (xMax - xMin + 1);
+			int height = PIXEL_SIZE * (yMax - yMin + 1);
+
+			Bitmap bmp = new Bitmap(width, height);
+
+			foreach(KeyValuePair<KeyValuePair<int,int>,SymbolsType> v in map)
+            {
+				int x = v.Key.Key - xMin;
+				int y = v.Key.Value - yMin;
+
+				for (int i=0;i< PIXEL_SIZE; i++)
+                {
+					for(int j = 0; j < PIXEL_SIZE; j++)
+                    {
+						bmp.SetPixel(PIXEL_SIZE * x + i, PIXEL_SIZE * y + j, v.Value.TestColor);
+                    }
+                }
+            }
+
+			bmp.Save(File.OpenWrite(path), System.Drawing.Imaging.ImageFormat.Bmp);
+		}
 
 		[Test]
 		public void VisualTestOctagonalWorldGeneratorBuilder()
 		{
 			try
 			{
+				SetUp();
 				for (int n = 0; n < N_IMAGE; n++)
 				{
 					JSONDataAccessLayer.generateNewSeed();
-					Console.WriteLine(JSONDataAccessLayer._seed);
 
-					IWorldGeneratorBuilder<OctagonalRoom> sgwb = new OctagonalWorldGeneratorBuilder()
+					IWorldGeneratorBuilder<OctagonalRoom> gen = new OctagonalWorldGeneratorBuilder()
 						.AddSomeBaseRoom(new BaseRoomsGeneratorFactory().GenerateOctagonalRoomList(3, 5, 1, 4, 15, 25))
 						.GenerateRooms(1, 2)
 						.GeneratePlayer()
@@ -35,16 +95,8 @@ namespace CampanozziTest
 						.Finishes()
 						.Build();
 
-					string d = "";
-					for (int i = sgwb.MinX; i < sgwb.MaxX; i++)
-					{
-						for (int j = sgwb.MinY; j < sgwb.MaxY; j++)
-						{
-							d += (char)sgwb.Map[new KeyValuePair<int, int>(i, j)] + "  ";
-						}
-						Console.WriteLine(d);
-						d = "";
-					}
+					SaveMapToBitmap(gen.Map, gen.MinX, gen.MaxX, gen.MinY, gen.MaxY,
+						_projectPath + Path.DirectorySeparatorChar + "test" + Path.DirectorySeparatorChar + "GeneraterMap" + Path.DirectorySeparatorChar + "TestE[" + JSONDataAccessLayer._seed + "].bmp");
 				}
 			}
 			catch (Exception e)
@@ -58,12 +110,12 @@ namespace CampanozziTest
 		{
 			try
 			{
+				SetUp();
 				for (int n = 0; n < N_IMAGE; n++)
 				{
 					JSONDataAccessLayer.generateNewSeed();
-					Console.WriteLine(JSONDataAccessLayer._seed);
 
-					IWorldGeneratorBuilder<QuadraticRoom> sgwb = new QuadraticWorldGeneratorBuilder()
+					IWorldGeneratorBuilder<QuadraticRoom> gen = new QuadraticWorldGeneratorBuilder()
 						.AddSomeBaseRoom(new BaseRoomsGeneratorFactory().GenerateQuadraticRoomList(5, 13, 1, 4, 15, 25))
 						.GenerateRooms(1, 2)
 						.GeneratePlayer()
@@ -75,16 +127,8 @@ namespace CampanozziTest
 						.Finishes()
 						.Build();
 
-					string d = "";
-					for (int i = sgwb.MinX; i < sgwb.MaxX; i++)
-					{
-						for (int j = sgwb.MinY; j < sgwb.MaxY; j++)
-						{
-							d += (char)sgwb.Map[new KeyValuePair<int, int>(i, j)] + "  ";
-						}
-						Console.WriteLine(d);
-						d = "";
-					}
+					SaveMapToBitmap(gen.Map, gen.MinX, gen.MaxX, gen.MinY, gen.MaxY,
+						_projectPath + Path.DirectorySeparatorChar + "test" + Path.DirectorySeparatorChar + "GeneraterMap" + Path.DirectorySeparatorChar + "TestQ[" + JSONDataAccessLayer._seed + "].bmp");
 				}
 			}
 			catch (Exception e)
@@ -98,12 +142,12 @@ namespace CampanozziTest
 		{
 			try
 			{
+				SetUp();
 				for (int n = 0; n < N_IMAGE; n++)
 				{
 					JSONDataAccessLayer.generateNewSeed();
-					Console.WriteLine(JSONDataAccessLayer._seed);
 
-					IWorldGeneratorBuilder<RectangularRoom> sgwb = new RectangularWorldGeneratorBuilder()
+					IWorldGeneratorBuilder<RectangularRoom> gen = new RectangularWorldGeneratorBuilder()
 						.AddSomeBaseRoom(new BaseRoomsGeneratorFactory().GenerateRectungolarRoomList(5, 13, 5, 13, 1, 4, 15, 25))
 						.GenerateRooms(1, 2)
 						.GeneratePlayer()
@@ -115,16 +159,8 @@ namespace CampanozziTest
 						.Finishes()
 						.Build();
 
-					string d = "";
-					for (int i = sgwb.MinX; i < sgwb.MaxX; i++)
-					{
-						for (int j = sgwb.MinY; j < sgwb.MaxY; j++)
-						{
-							d += (char)sgwb.Map[new KeyValuePair<int, int>(i, j)] + "  ";
-						}
-						Console.WriteLine(d);
-						d = "";
-					}
+					SaveMapToBitmap(gen.Map, gen.MinX, gen.MaxX, gen.MinY, gen.MaxY,
+						_projectPath + Path.DirectorySeparatorChar + "test" + Path.DirectorySeparatorChar + "GeneraterMap" + Path.DirectorySeparatorChar + "TestR[" + JSONDataAccessLayer._seed + "].bmp");
 				}
 			}
 			catch (Exception e)
