@@ -1,10 +1,12 @@
 ﻿using NUnit.Framework;
 using Zammarchi;
 using Zammarchi.Items.Weapon;
-using System;
 
 namespace Test
 {
+    /// <summary>
+    ///     Tests the correct handling of weapon projectiles.
+    /// </summary>
     public class AmmoTest
     {
         Inventory inventory;

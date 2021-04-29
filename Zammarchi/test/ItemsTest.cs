@@ -5,6 +5,9 @@ using System;
 
 namespace Test
 {
+    /// <summary>
+    ///     Tests the usage of different ItemsType and CollectiblesType
+    /// </summary>
     public class ItemsTest
     {
         Inventory inventory;
