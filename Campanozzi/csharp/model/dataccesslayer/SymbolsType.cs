@@ -4,9 +4,9 @@ namespace Campanozzi.Model.DataAccessLayer
 {
     public sealed class SymbolsType
     {
-        private char _c;
-        private Color _testColor;
-        private Color _miniMapColor;
+        private readonly char _c;
+        private readonly Color _testColor;
+        private readonly Color _miniMapColor;
 
         public char Decotification
         {

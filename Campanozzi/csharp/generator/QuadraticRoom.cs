@@ -10,13 +10,14 @@ namespace Campanozzi.Controller.Generator
 {
 	public class QuadraticRoom : AbstractRoom, IRoom
 	{
-		private int _w;
-		private int _d;
+		private readonly int _w;
+		private readonly int _d;
 
 		private QuadraticRoom(IDictionary<KeyValuePair<int, int>, SymbolsType> map, KeyValuePair<int, int> center, int edge) : base()
 		{
 			this._map = map;
 			this._w = edge;
+			this._center = center;
 		}
 
 		public QuadraticRoom(int edge, int nDoor) : base()

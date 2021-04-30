@@ -10,9 +10,9 @@ namespace Campanozzi.Controller.Generator
 {
     public class OctagonalRoom : AbstractRoom, IRoom
     {
-        private int _width;
-        private int _edge;
-        private int _nDoor;
+        private readonly int _width;
+        private readonly int _edge;
+        private readonly int _nDoor;
 
         private OctagonalRoom(IDictionary<KeyValuePair<int, int>, SymbolsType> map, KeyValuePair<int, int> center, int width) : base()
         {

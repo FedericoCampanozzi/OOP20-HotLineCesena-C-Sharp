@@ -12,7 +12,8 @@ namespace Campanozzi.Controller.Generator
     {
         protected const int ACCETABLE_MAP = 5;
         protected const int MAX_POSSIBILITY = 10000;
-        protected const int MAP_PADDING = 10;
+        protected const int MAP_PADDING = 2;
+
         protected Random _rnd = new Random(JSONDataAccessLayer._seed);
         protected int _xMin, _xMax, _yMin, _yMax;
         protected int _pRoomIndex;
@@ -53,7 +54,6 @@ namespace Campanozzi.Controller.Generator
             int nRooms = _rnd.Next(nRoomsMin, nRoomsMax);
             for (int l = 0; l < MAX_POSSIBILITY && this._rooms.Count < nRooms; l++)
             {
-
                 X toPut = (X)this._baseRooms[_rnd.Next(this._baseRooms.Count)].DeepCopy();
 
                 if (this._rooms.Count == 0)
@@ -141,7 +141,7 @@ namespace Campanozzi.Controller.Generator
                 {
                     IRoom r = this._rooms[rIndex];
                     int roomObj = _rnd.Next(minInRoom, maxInRoom);
-                    IList<KeyValuePair<int, int>> positions = (IList<KeyValuePair<int, int>>)r.Map.Keys;
+                    IList<KeyValuePair<int, int>> positions = r.Map.Keys.Select(itm => new KeyValuePair<int, int>(itm.Key, itm.Value)).ToList();
 
                     for (int i = 0; i < roomObj; i++)
                     {
@@ -150,7 +150,7 @@ namespace Campanozzi.Controller.Generator
                         if (this._map.ContainsKey(pii) && this._map[pii].Equals(SymbolsType.WALKABLE))
                         {
                             this._map[pii] = type;
-                            r.Map.Add(MathUtils.Subtract(pii, r.Center), type);
+                            r.Map[MathUtils.Subtract(pii, r.Center)] = type;
                         }
                     }
                 }
@@ -211,7 +211,7 @@ namespace Campanozzi.Controller.Generator
                     this._map[new KeyValuePair<int, int>(i, j)] = SymbolsType.WALL;
                 }
             });
-            /*
+
             //check walkable that have near a void space
             this.ApplyCorrection((i, j) => {
                 if (this.Get(i, j, SymbolsType.WALKABLE) && CheckAdjacent8(i, j, SymbolsType.VOID))
@@ -219,7 +219,6 @@ namespace Campanozzi.Controller.Generator
                     this._map[new KeyValuePair<int, int>(i, j)] = SymbolsType.WALL;
                 }
             });
-            */
             return this;
         }
 

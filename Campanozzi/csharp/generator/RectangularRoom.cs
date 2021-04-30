@@ -9,15 +9,16 @@ namespace Campanozzi.Controller.Generator
 {
 	public class RectangularRoom : AbstractRoom, IRoom
 	{
-		private int _w;
-		private int _h;
-		private int _d;
+		private readonly int _w;
+		private readonly int _h;
+		private readonly int _d;
 
 		private RectangularRoom(IDictionary<KeyValuePair<int, int>, SymbolsType> map, KeyValuePair<int, int> center, int width, int height) : base()
 		{
 			this._map = map;
 			this._w = width;
 			this._h = height;
+			this._center = center;
 		}
 
 		public RectangularRoom(int width, int height, int nDoor) : base()
