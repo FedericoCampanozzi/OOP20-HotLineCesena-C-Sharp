@@ -136,7 +136,42 @@ namespace CampanozziTest
 				{
 					for (int j = 0; j < PIXEL_SIZE; j++)
 					{
-						bmp.SetPixel(PIXEL_SIZE * x + i, PIXEL_SIZE * y + j, v.Value.TestColor);
+						Color c = Color.FromArgb(255, 0, 0, 0);
+                        switch (v.Value)
+                        {
+							case (SymbolsType.WALKABLE):
+								c = Color.White;
+								break;
+							case (SymbolsType.WALL):
+								c = Color.SaddleBrown;
+								break;
+							case (SymbolsType.DOOR):
+								c = Color.Yellow;
+								break;
+							case (SymbolsType.VOID):
+								c = Color.Green;
+								break;
+							case (SymbolsType.WEAPONS):
+								c = Color.Blue;
+								break;
+							case (SymbolsType.PLAYER):
+								c = Color.MediumPurple;
+								break;
+							case (SymbolsType.OBSTACOLES):
+								c = Color.Brown;
+								break;
+							case (SymbolsType.ENEMY):
+								c = Color.Red;
+								break;
+							case (SymbolsType.KEY_ITEM):
+								c = Color.Orange;
+								break;
+							case (SymbolsType.ITEM):
+								c = Color.BlueViolet;
+								break;
+						}
+
+						bmp.SetPixel(PIXEL_SIZE * x + i, PIXEL_SIZE * y + j, c);
 					}
 				}
 			}
