@@ -19,7 +19,7 @@ namespace CampanozziTest
 		[Test]
 		public void VisualTestGenerator()
 		{
-			DirectoryInfo dir = new DirectoryInfo(JSONDataAccessLayer.GetInstance().ProjectPath + Path.DirectorySeparatorChar + "test" + Path.DirectorySeparatorChar + "generatermap");
+			DirectoryInfo dir = new DirectoryInfo(JSONDataAccessLayer.GetInstance().ProjectPath + Path.DirectorySeparatorChar + "Test" + Path.DirectorySeparatorChar + "GeneraterMap");
 			if (!dir.Exists)
 			{
 				dir.Create();
