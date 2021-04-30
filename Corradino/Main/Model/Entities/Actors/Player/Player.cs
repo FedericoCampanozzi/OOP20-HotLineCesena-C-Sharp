@@ -2,7 +2,7 @@
 using System.Linq;
 using Main.Commons;
 
-namespace Main.Model.Entities.Actors.player
+namespace Main.Model.Entities.Actors.Player
 {
     /// <summary>
     ///     Only partially implemented.

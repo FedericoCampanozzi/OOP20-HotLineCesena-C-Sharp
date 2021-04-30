@@ -3,7 +3,7 @@ using Main.Commons;
 using Main.Controller.Entities.Player.Command;
 using Main.Model.Entities;
 using Main.Model.Entities.Actors;
-using Main.Model.Entities.Actors.player;
+using Main.Model.Entities.Actors.Player;
 using NUnit.Framework;
 
 

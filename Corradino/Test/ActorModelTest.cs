@@ -2,7 +2,7 @@
 using Main.Commons;
 using Main.Model.Entities;
 using Main.Model.Entities.Actors;
-using Main.Model.Entities.Actors.player;
+using Main.Model.Entities.Actors.Player;
 using NUnit.Framework;
 
 namespace Test

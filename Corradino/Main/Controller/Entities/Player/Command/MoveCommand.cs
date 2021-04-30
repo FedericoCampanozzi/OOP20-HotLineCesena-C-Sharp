@@ -1,5 +1,5 @@
 ﻿using Main.Commons;
-using Main.Model.Entities.Actors.player;
+using Main.Model.Entities.Actors.Player;
 
 namespace Main.Controller.Entities.Player.Command
 {

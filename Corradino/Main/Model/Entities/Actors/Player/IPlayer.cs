@@ -1,4 +1,4 @@
-﻿namespace Main.Model.Entities.Actors.player
+﻿namespace Main.Model.Entities.Actors.Player
 {
     /// <summary>
     /// Models the player character and their unique actions.

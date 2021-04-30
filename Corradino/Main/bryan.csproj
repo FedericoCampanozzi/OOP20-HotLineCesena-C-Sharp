@@ -55,8 +55,8 @@
     <Compile Include="Model\Entities\Actors\AbstractActor.cs" />
     <Compile Include="Model\Entities\Actors\ActorStatus.cs" />
     <Compile Include="Model\Entities\Actors\IActor.cs" />
-    <Compile Include="Model\Entities\Actors\player\IPlayer.cs" />
-    <Compile Include="Model\Entities\Actors\player\Player.cs" />
+    <Compile Include="Model\Entities\Actors\Player\IPlayer.cs" />
+    <Compile Include="Model\Entities\Actors\Player\Player.cs" />
     <Compile Include="Model\Entities\IEntity.cs" />
     <Compile Include="Model\Entities\IMovableEntity.cs" />
     <Compile Include="Model\Entities\Obstacle.cs" />
