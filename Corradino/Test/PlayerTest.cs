@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using Main.Commons;
+using Main.Controller.Entities.Player.Command;
+using Main.Model.Entities;
+using Main.Model.Entities.Actors;
+using Main.Model.Entities.Actors.Player;
 using NUnit.Framework;
-using OOP20_HotlineCesena_csharp.commons;
-using OOP20_HotlineCesena_csharp.controller.entities.player.command;
-using OOP20_HotlineCesena_csharp.model.entities;
-using OOP20_HotlineCesena_csharp.model.entities.actors;
-using OOP20_HotlineCesena_csharp.model.entities.actors.player;
+
 
 namespace Test
 {

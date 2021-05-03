@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Main.Commons;
+using Main.Controller.Entities.Player;
+using Main.Controller.Entities.Player.Command;
 using NUnit.Framework;
-using OOP20_HotlineCesena_csharp.commons;
-using OOP20_HotlineCesena_csharp.controller.entities.player;
-using OOP20_HotlineCesena_csharp.controller.entities.player.command;
 
 namespace Test
 {
