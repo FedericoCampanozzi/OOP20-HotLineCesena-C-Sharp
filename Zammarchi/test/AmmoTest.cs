@@ -6,7 +6,6 @@ namespace Test
 {
     /// <summary>
     ///     Tests the correct handling of weapon projectiles.
-    ///     
     /// </summary>
     public class AmmoTest
     {
