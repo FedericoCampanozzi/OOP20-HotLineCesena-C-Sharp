@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Zammarchi
+﻿namespace Zammarchi
 {
     public sealed class Inventory
     {

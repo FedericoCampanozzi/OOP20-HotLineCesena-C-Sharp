@@ -2,7 +2,6 @@
 using Zammarchi;
 using Zammarchi.Items.Weapon;
 using Zammarchi.Items.Weapon.AttackStrategy;
-using System;
 
 namespace Test
 {

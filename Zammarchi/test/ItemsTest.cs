@@ -1,7 +1,6 @@
 ﻿using NUnit.Framework;
 using Zammarchi;
 using Zammarchi.Items;
-using System;
 
 namespace Test
 {
